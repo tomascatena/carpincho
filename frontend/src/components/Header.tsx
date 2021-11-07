@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, Dispatch, SetStateAction } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,10 +13,9 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import MaterialUISwitch from './MUISwitch';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -58,7 +57,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Header: FC = () => {
+interface Props {
+  setDarkTheme: Dispatch<SetStateAction<boolean>>;
+  darkTheme: boolean;
+}
+
+const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
@@ -128,6 +132,13 @@ const Header: FC = () => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
+        <MaterialUISwitch
+          checked={darkTheme}
+          onChange={() => setDarkTheme(!darkTheme)}
+        />
+      </MenuItem>
+
+      <MenuItem>
         <IconButton size='large' aria-label='show 4 new mails' color='inherit'>
           <Badge badgeContent={4} color='error'>
             <ShoppingCartIcon />
@@ -156,76 +167,91 @@ const Header: FC = () => {
   return (
     <Box>
       <AppBar position='static'>
-        <Toolbar>
-          <IconButton
-            size='large'
-            edge='start'
-            color='inherit'
-            aria-label='open drawer'
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-
-          <Typography
-            variant='h6'
-            noWrap
-            component='div'
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            Carpincho
-          </Typography>
-
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-
-            <StyledInputBase
-              placeholder='Search…'
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-
-          <Box sx={{ flexGrow: 1 }} />
-
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: '0.5rem' }}>
+        <Container>
+          <Toolbar>
             <IconButton
               size='large'
-              aria-label='show 4 new mails'
+              edge='start'
               color='inherit'
+              aria-label='open drawer'
+              sx={{ mr: 2 }}
             >
-              <Badge badgeContent={4} color='error'>
-                <ShoppingCartIcon />
-              </Badge>
+              <MenuIcon />
             </IconButton>
 
-            <IconButton
-              size='large'
-              edge='end'
-              aria-label='account of current user'
-              aria-controls={menuId}
-              aria-haspopup='true'
-              onClick={handleProfileMenuOpen}
-              color='inherit'
+            <Typography
+              variant='h6'
+              noWrap
+              component='div'
+              sx={{ display: { xs: 'none', sm: 'block' } }}
             >
-              <AccountCircle />
-            </IconButton>
-          </Box>
+              Carpincho
+            </Typography>
 
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size='large'
-              aria-label='show more'
-              aria-controls={mobileMenuId}
-              aria-haspopup='true'
-              onClick={handleMobileMenuOpen}
-              color='inherit'
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+
+              <StyledInputBase
+                placeholder='Search…'
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+
+            <Box sx={{ flexGrow: 1 }} />
+
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: '0.5rem' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <MaterialUISwitch
+                  checked={darkTheme}
+                  onChange={() => setDarkTheme(!darkTheme)}
+                />
+              </Box>
+
+              <IconButton
+                size='large'
+                aria-label='show 4 new mails'
+                color='inherit'
+              >
+                <Badge badgeContent={4} color='error'>
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+
+              <IconButton
+                size='large'
+                edge='end'
+                aria-label='account of current user'
+                aria-controls={menuId}
+                aria-haspopup='true'
+                onClick={handleProfileMenuOpen}
+                color='inherit'
+              >
+                <AccountCircle />
+              </IconButton>
+            </Box>
+
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size='large'
+                aria-label='show more'
+                aria-controls={mobileMenuId}
+                aria-haspopup='true'
+                onClick={handleMobileMenuOpen}
+                color='inherit'
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </Container>
       </AppBar>
       {renderMobileMenu}
       {renderMenu}

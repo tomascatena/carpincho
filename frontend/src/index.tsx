@@ -5,19 +5,14 @@ import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
-import defaultTheme from './themes/defaultTheme';
-import defaultDarkTheme from './themes/defaultDarkTheme';
 
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
 
-    <ThemeProvider theme={defaultDarkTheme}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
