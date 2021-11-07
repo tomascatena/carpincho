@@ -9,15 +9,18 @@ import CardActionArea from '@mui/material/CardActionArea';
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 import { IProduct } from '../types/types';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   product: IProduct;
 }
 
 const Product: FC<Props> = ({ product }) => {
+  const navigate = useNavigate();
+
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea onClick={() => console.log('go to product page')}>
+      <CardActionArea onClick={() => navigate(`/products/${product._id}`)}>
         <CardMedia
           component='img'
           alt={product.description}

@@ -8,6 +8,8 @@ import HomePage from './pages/HomePage';
 import { ThemeProvider } from '@mui/material/styles';
 import defaultTheme from './themes/defaultTheme';
 import defaultDarkTheme from './themes/defaultDarkTheme';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ProductPage from './pages/ProductPage';
 
 const MainLayout = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
@@ -25,19 +27,22 @@ const App: FC = () => {
   const [darkTheme, setDarkTheme] = useState<boolean>(true);
 
   return (
-    <ThemeProvider theme={darkTheme ? defaultDarkTheme : defaultTheme}>
-      <MainLayout>
-        <Header setDarkTheme={setDarkTheme} darkTheme={darkTheme} />
+    <BrowserRouter>
+      <ThemeProvider theme={darkTheme ? defaultDarkTheme : defaultTheme}>
+        <MainLayout>
+          <Header setDarkTheme={setDarkTheme} darkTheme={darkTheme} />
 
-        <MainContainer>
-          <h1>Welcome to Carpincho</h1>
+          <MainContainer>
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route path='/product/:productId' element={<ProductPage />} />
+            </Routes>
+          </MainContainer>
 
-          <HomePage />
-        </MainContainer>
-
-        <Footer />
-      </MainLayout>
-    </ThemeProvider>
+          <Footer />
+        </MainLayout>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 };
 
