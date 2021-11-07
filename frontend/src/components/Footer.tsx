@@ -8,9 +8,11 @@ const Footer: FC = () => {
     <footer>
       <Container>
         <Box sx={{ margin: '1rem' }}>
-          <Typography align='center'>Copyright &copy; Carpincho</Typography>
+          <Typography align='center' color='text.primary'>
+            Copyright &copy; Carpincho
+          </Typography>
 
-          <Typography align='center'>
+          <Typography align='center' color='text.primary'>
             Built by <strong>Tomás Catena</strong>
           </Typography>
         </Box>

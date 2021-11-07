@@ -21,6 +21,8 @@ const MainLayout = styled(Box)(({ theme }) => ({
 
 const MainContainer = styled(Container)(({ theme }) => ({
   flex: 1,
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(4),
 }));
 
 const App: FC = () => {
