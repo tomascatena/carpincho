@@ -1,10 +1,23 @@
-import React, { FC } from 'react';
-import products from '../products';
+import React, { FC, useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Product from '../components/Product';
+import { IProduct } from '../types/types';
+import axios from 'axios';
 
 const HomePage: FC = () => {
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get('/api/v1/products');
+
+      setProducts(data.products);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <>
       <Typography
