@@ -12,7 +12,6 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import CardMedia from '@mui/material/CardMedia';
 import Divider from '@mui/material/Divider';
-import { IProduct } from '../types/types';
 import products from '../products';
 
 const ProductPage: FC = () => {
