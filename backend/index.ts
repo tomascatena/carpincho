@@ -1,13 +1,11 @@
 import app from './app';
 import config from './config/config';
-import mongoose from 'mongoose';
 import logger from './config/logger';
-import { Server } from 'http';
+import { connectDB } from './config/connectDB';
 
-let server: Server;
-logger.info('Connected to MongoDB');
-server = app.listen(config.port, () => {
+const server = app.listen(config.port, () => {
   logger.info(`Listening to port ${config.port}`);
+  connectDB();
 });
 
 const exitHandler = () => {
