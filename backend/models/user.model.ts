@@ -4,7 +4,11 @@ import { roles } from '../config/roles';
 
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, trim: true },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     email: {
       type: String,
       required: true,
@@ -30,8 +34,15 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
-    role: { type: String, enum: roles, default: 'user' },
-    isEmailVerified: { type: Boolean, default: false },
+    role: {
+      type: String,
+      enum: roles,
+      default: 'user',
+    },
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
