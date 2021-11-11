@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 
-export const users = [
+const users = [
   {
     name: 'Admin User',
     email: 'admin@example.com',
@@ -20,3 +20,5 @@ export const users = [
     role: 'user',
   },
 ];
+
+export default users;
