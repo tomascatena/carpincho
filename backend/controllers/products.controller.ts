@@ -21,9 +21,8 @@ export const getSingleProduct = catchAsync(
         product,
       });
     } else {
-      res.status(httpStatus.NOT_FOUND).json({
-        message: 'Product not found',
-      });
+      res.status(httpStatus.NOT_FOUND);
+      throw new Error('Product not found');
     }
   }
 );
