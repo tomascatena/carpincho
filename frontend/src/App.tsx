@@ -1,15 +1,15 @@
 import React, { FC, useState } from 'react';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import Footer from './app/components/Footer';
+import Header from './app/components/Header';
 import { styled } from '@mui/system';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import HomePage from './pages/HomePage';
+import HomePage from './app/pages/HomePage';
 import { ThemeProvider } from '@mui/material/styles';
-import defaultTheme from './themes/defaultTheme';
-import defaultDarkTheme from './themes/defaultDarkTheme';
+import defaultTheme from './app/themes/defaultTheme';
+import defaultDarkTheme from './app/themes/defaultDarkTheme';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import ProductPage from './pages/ProductPage';
+import ProductPage from './app/pages/ProductPage';
 
 const MainLayout = styled(Box)(({ theme }) => ({
   minHeight: '100vh',

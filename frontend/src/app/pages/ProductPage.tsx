@@ -12,7 +12,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import CardMedia from '@mui/material/CardMedia';
 import Divider from '@mui/material/Divider';
-import products from '../products';
+import products from '../../products';
 
 const ProductPage: FC = () => {
   const params = useParams();
