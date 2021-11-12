@@ -3,8 +3,8 @@ import config from './config/config';
 import logger from './config/logger';
 import { connectDB } from './config/connectDB';
 
-const server = app.listen(config.port, () => {
-  logger.info(`Listening to port ${config.port}`);
+const server = app.listen(config.PORT, () => {
+  logger.info(`Listening to port ${config.PORT}`);
   connectDB();
 });
 

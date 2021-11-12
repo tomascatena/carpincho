@@ -9,7 +9,7 @@ morgan.token(
 );
 
 const getIpFormat = () =>
-  config.env === 'production' ? ':remote-addr - ' : '';
+  config.NODE_ENV === 'production' ? ':remote-addr - ' : '';
 const successResponseFormat = `${getIpFormat()}:method :url :status - :response-time ms`;
 const errorResponseFormat = `${getIpFormat()}:method :url :status - :response-time ms - message: :message`;
 

@@ -6,7 +6,7 @@ import { successHandler, errorHandler } from './config/morgan';
 
 const app = express();
 
-if (config.env !== 'test') {
+if (config.NODE_ENV !== 'test') {
   app.use(successHandler);
   app.use(errorHandler);
 }

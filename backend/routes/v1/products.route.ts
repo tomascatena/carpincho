@@ -1,8 +1,13 @@
 import express from 'express';
-import { fetchProducts } from '../../controllers/products.controller';
+import {
+  getProducts,
+  getSingleProduct,
+} from '../../controllers/products.controller';
+import { productsValidation } from '../../validations';
 
 const router = express.Router();
 
-router.get('/', fetchProducts);
+router.get('/', getProducts);
+router.get('/:productId', productsValidation.getProductById, getSingleProduct);
 
 export default router;
