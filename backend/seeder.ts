@@ -24,7 +24,7 @@ const importData = async () => {
 
     await Product.insertMany(sampleProducts);
 
-    logger.info('Data Imported');
+    logger.info('Data Imported.');
 
     process.exit(0);
   } catch (error) {
@@ -36,13 +36,11 @@ const importData = async () => {
 
 const destroyData = async () => {
   try {
-    logger.info('Destroying data, please wait');
-
     await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
 
-    logger.info('Data Destroyed');
+    logger.info('Data Destroyed.');
 
     process.exit(0);
   } catch (error) {

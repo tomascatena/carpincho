@@ -14,7 +14,7 @@ export const fetchProducts = createAsyncThunk<
     return;
   }
 
-  const { data } = await axios.get('http://localhost:5000/api/v1/products');
+  const { data } = await axios.get('/api/v1/products');
 
   return data.products;
 });
