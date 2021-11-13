@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Product from '../components/Product';
-import { useAppDispatch, useTypedSelector } from '../hooks/hooks';
+import { useAppDispatch, useTypedSelector } from '../hooks';
 import { fetchProducts } from '../store/features/products/products.thunk';
 
 const HomePage: FC = () => {

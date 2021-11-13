@@ -12,7 +12,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import CardMedia from '@mui/material/CardMedia';
 import Divider from '@mui/material/Divider';
-import { useTypedSelector } from '../hooks/hooks';
+import { useTypedSelector } from '../hooks';
 
 const ProductPage: FC = () => {
   const { productId } = useParams();
