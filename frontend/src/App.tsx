@@ -10,6 +10,7 @@ import defaultTheme from './app/themes/defaultTheme';
 import defaultDarkTheme from './app/themes/defaultDarkTheme';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProductPage from './app/pages/ProductPage';
+import CartPage from './app/pages/CartPage';
 
 const MainLayout = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
@@ -38,6 +39,7 @@ const App: FC = () => {
             <Routes>
               <Route path='/' element={<HomePage />} />
               <Route path='/product/:productId' element={<ProductPage />} />
+              <Route path='/cart/:productId?' element={<CartPage />} />
             </Routes>
           </MainContainer>
 
