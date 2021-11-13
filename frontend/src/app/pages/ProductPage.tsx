@@ -52,7 +52,7 @@ const ProductPage: FC = () => {
                 <Box sx={{ display: 'flex', gap: '0.3rem' }}>
                   <Rating
                     name='product-rating'
-                    defaultValue={product?.rating}
+                    defaultValue={product?.averageRating}
                     precision={0.5}
                     size='small'
                     readOnly

@@ -7,7 +7,7 @@ export const fetchProducts = createAsyncThunk<
   IProduct[],
   void,
   { state: RootState }
->('products/fetchAllProducts', async (_, { getState, requestId }) => {
+>('products/fetchProducts', async (_, { getState, requestId }) => {
   const { loading, currentRequestId } = getState().products;
 
   if (loading !== 'pending' || requestId !== currentRequestId) {
