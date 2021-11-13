@@ -1,46 +1,46 @@
 import { createSlice, SerializedError } from '@reduxjs/toolkit';
 import { IProduct } from '../../../types/types';
-import { fetchProducts } from './products.thunk';
+import { fetchProductById } from './productDetails.thunk';
 
-export interface ProductsState {
-  products: IProduct[];
+export interface ProductState {
+  productDetails: IProduct | null;
   loading: 'idle' | 'pending';
   currentRequestId: string | undefined;
   error: SerializedError | null;
 }
 
-const initialState: ProductsState = {
-  products: [],
+const initialState: ProductState = {
+  productDetails: null,
   loading: 'idle',
   currentRequestId: undefined,
   error: null,
 };
 
-export const productsSlice = createSlice({
-  name: 'products',
+export const productDetailsSlice = createSlice({
+  name: 'productDetails',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProducts.pending, (state, action) => {
+      .addCase(fetchProductById.pending, (state, action) => {
         if (state.loading === 'idle') {
           state.loading = 'pending';
           state.error = null;
           state.currentRequestId = action.meta.requestId;
         }
       })
-      .addCase(fetchProducts.fulfilled, (state, action) => {
+      .addCase(fetchProductById.fulfilled, (state, action) => {
         const { requestId } = action.meta;
         if (
           state.loading === 'pending' &&
           state.currentRequestId === requestId
         ) {
           state.loading = 'idle';
-          state.products = action.payload;
+          state.productDetails = action.payload;
           state.currentRequestId = undefined;
         }
       })
-      .addCase(fetchProducts.rejected, (state, action) => {
+      .addCase(fetchProductById.rejected, (state, action) => {
         const { requestId } = action.meta;
         if (
           state.loading === 'pending' &&
@@ -54,6 +54,6 @@ export const productsSlice = createSlice({
   },
 });
 
-export const productActions = productsSlice.actions;
+export const productActions = productDetailsSlice.actions;
 
-export default productsSlice.reducer;
+export default productDetailsSlice.reducer;

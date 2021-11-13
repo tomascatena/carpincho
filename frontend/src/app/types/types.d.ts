@@ -9,6 +9,7 @@ export interface IProduct {
   countInStock: number;
   averageRating: number;
   numReviews: number;
+  reviews: IReview[];
 }
 
 export interface IUser {

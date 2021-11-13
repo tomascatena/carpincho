@@ -63,7 +63,7 @@ const HomePage: FC = () => {
           />
         </Box>
       ) : error ? (
-        <Alert severity='error' variant='filled' sx={{ margin: '0 4' }}>
+        <Alert severity='error' variant='filled'>
           <AlertTitle>Error</AlertTitle>
           {error.message}
         </Alert>
