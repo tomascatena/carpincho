@@ -12,12 +12,13 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import CardMedia from '@mui/material/CardMedia';
 import Divider from '@mui/material/Divider';
-import products from '../../products';
+import { useTypedSelector } from '../hooks/hooks';
 
 const ProductPage: FC = () => {
-  const params = useParams();
+  const { productId } = useParams();
+  const { products } = useTypedSelector((state) => state.products);
 
-  const product = products.find((product) => product._id === params.productId);
+  const product = products.find((product) => product._id === productId);
 
   return (
     <>

@@ -1,21 +1,25 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Product from '../components/Product';
-import { IProduct } from '../types/types';
-import axios from 'axios';
+import { useAppDispatch, useTypedSelector } from '../hooks/hooks';
+import { fetchProducts } from '../store/features/products/products.thunk';
 
 const HomePage: FC = () => {
-  const [products, setProducts] = useState<IProduct[]>([]);
+  const { products } = useTypedSelector((state) => state.products);
+
+  const dispatch = useAppDispatch();
+
+  const fetchAllProducts = async () => {
+    try {
+      await dispatch(fetchProducts());
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get('/api/v1/products');
-
-      setProducts(data.products);
-    };
-
-    fetchProducts();
+    fetchAllProducts();
   }, []);
 
   return (
