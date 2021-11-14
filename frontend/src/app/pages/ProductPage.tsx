@@ -7,35 +7,29 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import { SelectChangeEvent } from '@mui/material/Select';
 import AlertTitle from '@mui/material/AlertTitle';
-import { useTypedSelector, useAppDispatch } from '../hooks';
+import { useTypedSelector, useAppDispatch, useActions } from '../hooks';
 import { fetchProductById } from '../store/features/productDetails/productDetails.thunk';
-import ProductDetails from '../components/ProductDetails';
+import ProductOverview from '../components/ProductOverview';
 import ProductPageSummary from '../components/ProductPageSummary';
 import { useNavigate } from 'react-router-dom';
 
 const ProductPage: FC = () => {
-  const navigate = useNavigate();
-  const { productId } = useParams();
   const [quantity, setQuantity] = useState<number>(1);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { productId } = useParams();
+  const { addCartItem } = useActions();
 
   const { productDetails, loading, error } = useTypedSelector(
     (state) => state.productDetails
   );
 
-  const dispatch = useAppDispatch();
-
-  const fetchAllProducts = async () => {
-    try {
-      if (productId) {
-        await dispatch(fetchProductById(productId));
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
-    fetchAllProducts();
+    if (productId) {
+      dispatch(fetchProductById(productId));
+    } else {
+      navigate('/');
+    }
   }, []);
 
   const handleQuantityChange = (event: SelectChangeEvent) => {
@@ -43,7 +37,16 @@ const ProductPage: FC = () => {
   };
 
   const addToCartHandler = () => {
-    navigate(`/cart/${productId}?qty=${quantity}`);
+    if (productDetails) {
+      addCartItem({
+        item: productDetails,
+        quantity,
+      });
+
+      navigate(`/cart/${productId}?qty=${quantity}`);
+    } else {
+      navigate('/');
+    }
   };
 
   return (
@@ -89,7 +92,7 @@ const ProductPage: FC = () => {
           >
             {productDetails && (
               <>
-                <ProductDetails productDetails={productDetails} />
+                <ProductOverview productDetails={productDetails} />
 
                 <ProductPageSummary
                   productDetails={productDetails}

@@ -54,6 +54,6 @@ export const productDetailsSlice = createSlice({
   },
 });
 
-export const productActions = productDetailsSlice.actions;
+export const productDetailsActions = productDetailsSlice.actions;
 
 export default productDetailsSlice.reducer;

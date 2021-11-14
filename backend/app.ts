@@ -4,6 +4,8 @@ import express from 'express';
 import routes from './routes/v1';
 import cors from 'cors';
 import config from './config/config';
+import morgan from 'morgan';
+import { LoggerStream } from './config/logger';
 
 const app = express();
 
@@ -20,6 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // enable cors
 app.use(cors());
+
+// write request information from morgan with the winston logger
+app.use(morgan('combined', { stream: new LoggerStream() }));
 
 // v1 api routes
 app.use('/api/v1', routes);

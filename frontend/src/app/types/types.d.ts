@@ -25,3 +25,16 @@ export interface IReview {
   rating: number;
   comment: string;
 }
+
+export interface IAddCartItem {
+  quantity: number;
+  item: IProduct;
+}
+
+export interface ICartItem {
+  product: string;
+  quantity: number;
+  image: string;
+  price: number;
+  name: string;
+}

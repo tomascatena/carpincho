@@ -5,6 +5,9 @@ import { store } from './app/store/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import CssBaseline from '@mui/material/CssBaseline';
+import { getCartITemsFromLocalStorage } from './app/utils/getCartItemsFromLocalStorage';
+
+getCartITemsFromLocalStorage();
 
 ReactDOM.render(
   <React.StrictMode>
