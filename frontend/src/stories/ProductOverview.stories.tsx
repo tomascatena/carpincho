@@ -1,20 +1,20 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import ProductCard from '../app/components/ProductCard';
+import ProductOverview from '../app/components/ProductOverview';
 
 export default {
-  title: 'Carpincho/Product-Card',
-  component: ProductCard,
-} as ComponentMeta<typeof ProductCard>;
+  title: 'Carpincho/Product-Overview',
+  component: ProductOverview,
+} as ComponentMeta<typeof ProductOverview>;
 
-const Template: ComponentStory<typeof ProductCard> = (args) => (
-  <ProductCard product={args.product} />
+const Template: ComponentStory<typeof ProductOverview> = (args) => (
+  <ProductOverview productDetails={args.productDetails} />
 );
 
-export const ProductCardStory = Template.bind({});
-ProductCardStory.args = {
-  product: {
+export const ProductOverviewStory = Template.bind({});
+ProductOverviewStory.args = {
+  productDetails: {
     _id: '618fe92e90189ff214377a84',
     name: 'Cannon EOS 80D DSLR Camera',
     image: '/images/camera.jpg',

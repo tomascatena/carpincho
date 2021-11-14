@@ -32,7 +32,7 @@ const ProductPageSummary: FC<Props> = ({
         <Card variant='outlined'>
           <CardContent>
             <Typography variant='h6' component='div' sx={{ my: 1 }}>
-              Price: ${productDetails.price * quantity}
+              Price: ${(productDetails.price * quantity).toFixed(2)}
             </Typography>
 
             <Divider />
