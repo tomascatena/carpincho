@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Product from '../components/Product';
+import ProductCard from '../components/ProductCard';
 import { useAppDispatch, useTypedSelector } from '../hooks';
 import { fetchProducts } from '../store/features/products/products.thunk';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -76,7 +76,7 @@ const HomePage: FC = () => {
           {products.map((product) => {
             return (
               <Grid item xs={4} sm={4} md={4} key={product._id}>
-                <Product product={product} />
+                <ProductCard product={product} />
               </Grid>
             );
           })}
