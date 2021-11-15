@@ -1,5 +1,5 @@
-import { cartActions } from '../store/features/cart/cartSlice';
-import { store } from '../store/store';
+import { cartActions } from './features/cart/cartSlice';
+import { store } from './store';
 
 export const getCartITemsFromLocalStorage = (): void => {
   try {

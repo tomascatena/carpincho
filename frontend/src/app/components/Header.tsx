@@ -16,6 +16,8 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MaterialUISwitch from './MUISwitch';
+import { useTypedSelector } from '../hooks';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -63,9 +65,21 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
+  const navigate = useNavigate();
+  const { cartItems } = useTypedSelector((state) => state.cart);
+
+  const numberOfItemsOnCart = cartItems.reduce(
+    (previousValue, currentValue) => {
+      return previousValue + currentValue.quantity;
+    },
+    0
+  );
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-    useState<null | HTMLElement>(null);
+  const [
+    mobileMoreAnchorEl,
+    setMobileMoreAnchorEl,
+  ] = useState<null | HTMLElement>(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -85,6 +99,10 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const goToCartPage = () => {
+    navigate('/cart');
   };
 
   const menuId = 'primary-search-account-menu';
@@ -139,8 +157,13 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
       </MenuItem>
 
       <MenuItem>
-        <IconButton size='large' aria-label='show 4 new mails' color='inherit'>
-          <Badge badgeContent={4} color='error'>
+        <IconButton
+          onClick={goToCartPage}
+          size='large'
+          aria-label='show 4 new mails'
+          color='inherit'
+        >
+          <Badge badgeContent={numberOfItemsOnCart} color='error'>
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -180,6 +203,7 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
             </IconButton>
 
             <Typography
+              onClick={() => navigate('/')}
               variant='h6'
               noWrap
               component='div'
@@ -216,11 +240,12 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
               </Box>
 
               <IconButton
+                onClick={goToCartPage}
                 size='large'
                 aria-label='show 4 new mails'
                 color='inherit'
               >
-                <Badge badgeContent={4} color='error'>
+                <Badge badgeContent={numberOfItemsOnCart} color='error'>
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>

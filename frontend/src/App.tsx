@@ -38,8 +38,13 @@ const App: FC = () => {
           <MainContainer>
             <Routes>
               <Route path='/' element={<HomePage />} />
+
               <Route path='/product/:productId' element={<ProductPage />} />
-              <Route path='/cart/:productId?' element={<CartPage />} />
+
+              <Route path='/cart'>
+                <Route path=':productId' element={<CartPage />} />
+                <Route path='' element={<CartPage />} />
+              </Route>
             </Routes>
           </MainContainer>
 

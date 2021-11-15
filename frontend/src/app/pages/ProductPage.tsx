@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -7,18 +7,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import { SelectChangeEvent } from '@mui/material/Select';
 import AlertTitle from '@mui/material/AlertTitle';
-import { useTypedSelector, useAppDispatch, useActions } from '../hooks';
+import { useTypedSelector, useAppDispatch } from '../hooks';
 import { fetchProductById } from '../store/features/productDetails/productDetails.thunk';
 import ProductOverview from '../components/ProductOverview';
 import ProductPageSummary from '../components/ProductPageSummary';
-import { useNavigate } from 'react-router-dom';
 
 const ProductPage: FC = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { productId } = useParams();
-  const { addCartItem } = useActions();
 
   const { productDetails, loading, error } = useTypedSelector(
     (state) => state.productDetails
@@ -38,11 +36,6 @@ const ProductPage: FC = () => {
 
   const addToCartHandler = () => {
     if (productDetails) {
-      addCartItem({
-        item: productDetails,
-        quantity,
-      });
-
       navigate(`/cart/${productId}?qty=${quantity}`);
     } else {
       navigate('/');

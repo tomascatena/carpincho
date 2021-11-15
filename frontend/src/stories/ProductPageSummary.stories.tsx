@@ -1,10 +1,8 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 
 import ProductPageSummary from '../app/components/ProductPageSummary';
-import ProductOverview from '../app/components/ProductOverview';
 
 export default {
   title: 'Carpincho/Product-Page-Summary',
@@ -12,16 +10,26 @@ export default {
 } as ComponentMeta<typeof ProductPageSummary>;
 
 const Template: ComponentStory<typeof ProductPageSummary> = (args) => (
-  <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-    <>
-      <ProductOverview productDetails={args.productDetails} />
+  <Grid
+    sx={{ minWidth: '100vw' }}
+    container
+    spacing={{ xs: 2, md: 3 }}
+    columns={{ xs: 4, sm: 8, md: 12 }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+      }}
+    >
       <ProductPageSummary {...args} />
-    </>
+    </div>
   </Grid>
 );
 
-export const ProductPageSummaryInStock = Template.bind({});
-ProductPageSummaryInStock.args = {
+export const ProductInStock = Template.bind({});
+ProductInStock.args = {
   handleQuantityChange: () => true,
   addToCartHandler: () => true,
   quantity: 3,
@@ -41,8 +49,8 @@ ProductPageSummaryInStock.args = {
   },
 };
 
-export const ProductPageSummaryOutOfStock = Template.bind({});
-ProductPageSummaryOutOfStock.args = {
+export const ProductOutOfStock = Template.bind({});
+ProductOutOfStock.args = {
   handleQuantityChange: () => true,
   addToCartHandler: () => true,
   quantity: 3,

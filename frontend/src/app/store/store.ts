@@ -4,6 +4,7 @@ import productDetailsReducer from './features/productDetails/productDetailsSlice
 import cartReducer from './features/cart/cartSlice';
 import { cartMiddleware } from './features/cart/cart.middleware';
 import { logger } from './middleware/logger.middleware';
+import { getCartITemsFromLocalStorage } from './getCartItemsFromLocalStorage';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,8 @@ export const store = configureStore({
   },
   devTools: process.env.NODE_ENV !== 'production',
 });
+
+getCartITemsFromLocalStorage();
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
