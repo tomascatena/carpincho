@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
@@ -202,15 +203,9 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
               <MenuIcon />
             </IconButton>
 
-            <Typography
-              onClick={() => navigate('/')}
-              variant='h6'
-              noWrap
-              component='div'
-              sx={{ display: { xs: 'none', sm: 'block' } }}
-            >
+            <Button onClick={() => navigate('/')} variant='text'>
               Carpincho
-            </Typography>
+            </Button>
 
             <Search>
               <SearchIconWrapper>

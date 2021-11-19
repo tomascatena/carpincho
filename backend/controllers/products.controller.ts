@@ -4,6 +4,9 @@ import Product from '../models/product.model';
 import { productsService } from '../services';
 import { catchAsync } from '../utils/catchAsync';
 
+// @desc    Fetch all products
+// @route   GET /api/v1/products
+// @access  Public
 export const getProducts = catchAsync(async (req: Request, res: Response) => {
   const products = await productsService.getAllProducts();
 
@@ -12,6 +15,9 @@ export const getProducts = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// @desc    Fetch product by id
+// @route   GET /api/v1/products/:productId
+// @access  Public
 export const getSingleProduct = catchAsync(
   async (req: Request, res: Response) => {
     const product = await productsService.getProductById(req.params.productId);

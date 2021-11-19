@@ -1,8 +1,18 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 import { roles } from '../config/roles';
+import bcrypt from 'bcryptjs';
 
-const userSchema = new mongoose.Schema(
+export interface IUser {
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+  isEmailVerified: boolean;
+  matchPassword: (password: string) => Promise<boolean>;
+}
+
+const userSchema = new mongoose.Schema<IUser>(
   {
     name: {
       type: String,
@@ -47,6 +57,12 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.model('User', userSchema);
+userSchema.methods.matchPassword = async function (
+  enteredPassword: string
+): Promise<boolean> {
+  return bcrypt.compare(enteredPassword, this.password);
+};
+
+const User = mongoose.model<IUser>('User', userSchema);
 
 export default User;
