@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FC } from 'react';
 import { useTypedSelector, useAppDispatch, useActions } from '../hooks';
 import { fetchProductById } from '../store/features/productDetails/productDetails.thunk';
-import {
-  Link,
-  useParams,
-  useNavigate,
-  useSearchParams,
-} from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Link from '@mui/material/Link';
+import CartItemsList from '../components/CartItemsList';
+import CartSummary from '../components/CartSummary';
 
-const CartPage = () => {
+const CartPage: FC = () => {
   const navigate = useNavigate();
   const { productId } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const qty = searchParams.get('qty');
 
@@ -19,7 +21,7 @@ const CartPage = () => {
   const { productDetails, loading, error } = useTypedSelector(
     (state) => state.productDetails
   );
-  const { addCartItem, removeCartItem } = useActions();
+  const { addCartItem } = useActions();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -32,9 +34,33 @@ const CartPage = () => {
     }
   }, []);
 
-  console.log(cartItems);
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12} md={8}>
+        <Typography variant='h4'>Shopping Cart</Typography>
+        {cartItems.length === 0 ? (
+          <Alert severity='info' variant='filled' sx={{ marginTop: 3 }}>
+            <AlertTitle> Your cart is empty</AlertTitle>
 
-  return <div>Cart</div>;
+            <Link
+              component='button'
+              onClick={() => navigate('/')}
+              color='inherit'
+              variant='body2'
+            >
+              Go Back
+            </Link>
+          </Alert>
+        ) : (
+          <CartItemsList cartItems={cartItems} />
+        )}
+      </Grid>
+
+      <Grid item xs={6} md={4}>
+        <CartSummary cartItems={cartItems} />
+      </Grid>
+    </Grid>
+  );
 };
 
 export default CartPage;

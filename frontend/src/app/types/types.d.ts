@@ -28,7 +28,13 @@ export interface IReview {
 
 export interface IAddCartItem {
   quantity: number;
-  item: IProduct;
+  item: {
+    _id: string;
+    name: string;
+    image: string;
+    price: number;
+    countInStock: number;
+  };
 }
 
 export interface ICartItem {
@@ -37,4 +43,5 @@ export interface ICartItem {
   image: string;
   price: number;
   name: string;
+  countInStock: number;
 }

@@ -43,6 +43,7 @@ export const cartSlice = createSlice({
           image: item.image,
           price: item.price,
           name: item.name,
+          countInStock: item.countInStock,
         });
       }
 
@@ -56,6 +57,27 @@ export const cartSlice = createSlice({
       );
 
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+    },
+    setCartItemQuantity(
+      state,
+      action: PayloadAction<{ productId: string; quantity: number }>
+    ) {
+      const { productId, quantity } = action.payload;
+
+      const existItem = state.cartItems.some(
+        (cartItem) => cartItem.product === productId
+      );
+
+      if (existItem) {
+        state.cartItems = state.cartItems.map((cartItem) => {
+          if (cartItem.product === productId) {
+            cartItem.quantity = quantity;
+          }
+          return cartItem;
+        });
+
+        localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+      }
     },
   },
 });
