@@ -1,6 +1,6 @@
 import JWT from 'jsonwebtoken';
 import User from '../models/user.model';
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import { catchAsync } from '../utils/catchAsync';
 import config from '../config/config';
 import httpStatus from 'http-status';

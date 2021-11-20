@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import validator from 'validator';
 import { roles } from '../config/roles';
 import bcrypt from 'bcryptjs';
-
+import config from '../config/config';
 export interface IUser {
   _id: string;
   name: string;
@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema<IUser>(
       type: String,
       required: true,
       trim: true,
-      minlength: 8,
+      minlength: config.MIN_PASSWORD_LENGTH,
       validate(value: string) {
         if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
           throw new Error(
@@ -63,6 +63,16 @@ userSchema.methods.matchPassword = async function (
 ): Promise<boolean> {
   return bcrypt.compare(enteredPassword, this.password);
 };
+
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
+
+  const salt = await bcrypt.genSalt(12);
+
+  this.password = await bcrypt.hash(this.password, salt);
+});
 
 const User = mongoose.model<IUser>('User', userSchema);
 

@@ -30,6 +30,45 @@ export const loginUser = catchAsync(async (req: Request, res: Response) => {
   }
 });
 
+// @desc    Register a new user & get token
+// @route   POST /api/v1/users
+// @access  Public
+export const registerNewUser = catchAsync(
+  async (req: Request, res: Response) => {
+    const { name, email, password } = req.body;
+
+    const userExists = await User.findOne({ email });
+
+    if (userExists) {
+      res.status(httpStatus.BAD_REQUEST);
+
+      throw new Error('User already exists');
+    } else {
+      const user = await User.create({
+        name,
+        email,
+        password,
+      });
+
+      if (user) {
+        const tokens = await generateAuthTokens(user._id);
+
+        res.status(httpStatus.CREATED).json({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          tokens,
+        });
+      } else {
+        res.status(httpStatus.BAD_REQUEST);
+
+        throw new Error('Invalid user data');
+      }
+    }
+  }
+);
+
 // @desc    Get user profile
 // @route   GET /api/v1/users/profile
 // @access  Private

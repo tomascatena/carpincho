@@ -24,6 +24,9 @@ const env = cleanEnv(process.env, {
   JWT_VERIFY_EMAIL_EXPIRATION_MINUTES: num({
     desc: 'Number of minutes after which a verify email token expires',
   }),
+  MIN_PASSWORD_LENGTH: num({
+    desc: 'Minimum required password length',
+  }),
 });
 
 export default env;
