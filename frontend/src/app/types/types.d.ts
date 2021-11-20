@@ -1,3 +1,5 @@
+export type Nullable<T> = T | null;
+
 export interface IProduct {
   _id: string;
   name: string;
@@ -12,12 +14,18 @@ export interface IProduct {
   reviews: IReview[];
 }
 
+export interface Token {
+  token: string;
+  expires: string;
+}
+
 export interface IUser {
   name: string;
   email: string;
   password: string;
   role: string;
   isEmailVerified: boolean;
+  tokens?: { access: Token; refresh: Token };
 }
 
 export interface IReview {

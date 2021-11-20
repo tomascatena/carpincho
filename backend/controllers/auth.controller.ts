@@ -21,6 +21,7 @@ export const loginUser = catchAsync(async (req: Request, res: Response) => {
       name: user.name,
       email: user.email,
       role: user.role,
+      isEmailVerified: user.isEmailVerified,
       tokens,
     });
   } else {
@@ -58,6 +59,7 @@ export const registerNewUser = catchAsync(
           name: user.name,
           email: user.email,
           role: user.role,
+          isEmailVerified: user.isEmailVerified,
           tokens,
         });
       } else {
@@ -83,6 +85,7 @@ export const getUserProfile = catchAsync(
           name: user.name,
           email: user.email,
           role: user.role,
+          isEmailVerified: user.isEmailVerified,
         });
       } else {
         res.status(httpStatus.NOT_FOUND);

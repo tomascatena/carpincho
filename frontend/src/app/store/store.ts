@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import productsReducer from './features/products/productsSlice';
 import productDetailsReducer from './features/productDetails/productDetailsSlice';
 import cartReducer from './features/cart/cartSlice';
+import userReducer from './features/user/userSlice';
 import { cartMiddleware } from './features/cart/cart.middleware';
 import { logger } from './middleware/logger.middleware';
 import { getCartITemsFromLocalStorage } from './getCartItemsFromLocalStorage';
@@ -11,6 +12,7 @@ export const store = configureStore({
     products: productsReducer,
     productDetails: productDetailsReducer,
     cart: cartReducer,
+    user: userReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(cartMiddleware, logger);
