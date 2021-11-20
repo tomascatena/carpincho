@@ -4,6 +4,7 @@ import { roles } from '../config/roles';
 import bcrypt from 'bcryptjs';
 
 export interface IUser {
+  _id: string;
   name: string;
   email: string;
   password: string;
