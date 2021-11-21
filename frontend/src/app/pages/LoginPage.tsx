@@ -154,7 +154,7 @@ const LoginPage: FC = () => {
 
         <Button
           variant='contained'
-          sx={{ marginTop: 2 }}
+          sx={{ marginTop: 2, paddingTop: 1, paddingBottom: 1 }}
           type='submit'
           disabled={
             !email.isValid || !password.isValid || loading === 'pending'

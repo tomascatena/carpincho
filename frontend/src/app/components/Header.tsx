@@ -286,23 +286,37 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
                 </Badge>
               </IconButton>
 
-              <IconButton
-                size='large'
-                edge='end'
-                aria-label='account of current user'
-                aria-controls={menuId}
-                aria-haspopup='true'
-                onClick={handleProfileMenuOpen}
-                color='inherit'
-                sx={{ borderRadius: '10000rem' }}
-              >
-                {user && (
+              {user ? (
+                <IconButton
+                  size='large'
+                  edge='end'
+                  aria-label='account of current user'
+                  aria-controls={menuId}
+                  aria-haspopup='true'
+                  onClick={handleProfileMenuOpen}
+                  color='inherit'
+                  sx={{ borderRadius: '10000rem' }}
+                >
                   <Typography variant='subtitle1' sx={{ marginRight: 1 }}>
                     {user.name}
                   </Typography>
-                )}
-                <AccountCircle />
-              </IconButton>
+
+                  <AccountCircle />
+                </IconButton>
+              ) : (
+                <Button
+                  onClick={handleLoginClick}
+                  variant='text'
+                  color='inherit'
+                  sx={{
+                    borderRadius: '1000rem',
+                    paddingLeft: 3,
+                    paddingRight: 3,
+                  }}
+                >
+                  Login
+                </Button>
+              )}
             </Box>
 
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
