@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
@@ -68,6 +69,7 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
   const { userLogout } = useActions();
   const navigate = useNavigate();
   const { cartItems } = useTypedSelector((state) => state.cart);
+  const { user } = useTypedSelector((state) => state.user);
 
   const numberOfItemsOnCart = cartItems.reduce(
     (previousValue, currentValue) => {
@@ -128,6 +130,7 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
   };
 
   const menuId = 'primary-search-account-menu';
+
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -144,17 +147,30 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+      {!user ? (
+        <MenuItem onClick={handleLoginClick} sx={{ minWidth: 150 }}>
+          Login
+        </MenuItem>
+      ) : (
+        <>
+          <MenuItem onClick={handleProfileClick} sx={{ minWidth: 150 }}>
+            Profile
+          </MenuItem>
 
-      <MenuItem onClick={handleMyAccountClick}>My account</MenuItem>
+          <MenuItem onClick={handleMyAccountClick} sx={{ minWidth: 150 }}>
+            My account
+          </MenuItem>
 
-      <MenuItem onClick={handleLoginClick}>Login</MenuItem>
-
-      <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+          <MenuItem onClick={handleLogoutClick} sx={{ minWidth: 150 }}>
+            Logout
+          </MenuItem>
+        </>
+      )}
     </Menu>
   );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -245,7 +261,7 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
 
             <Box sx={{ flexGrow: 1 }} />
 
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: '0.5rem' }}>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
               <Box
                 sx={{
                   display: 'flex',
@@ -278,7 +294,13 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
                 aria-haspopup='true'
                 onClick={handleProfileMenuOpen}
                 color='inherit'
+                sx={{ borderRadius: '10000rem' }}
               >
+                {user && (
+                  <Typography variant='subtitle1' sx={{ marginRight: 1 }}>
+                    {user.name}
+                  </Typography>
+                )}
                 <AccountCircle />
               </IconButton>
             </Box>
