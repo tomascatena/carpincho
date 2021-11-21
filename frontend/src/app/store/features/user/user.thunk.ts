@@ -8,7 +8,7 @@ export const userLogin = createAsyncThunk<
   Pick<IUser, 'email' | 'password'>,
   { state: RootState }
 >('user/userLogin', async ({ email, password }, { getState, requestId }) => {
-  const { loading, currentRequestId } = getState().products;
+  const { loading, currentRequestId } = getState().user;
 
   if (loading !== 'pending' || requestId !== currentRequestId) {
     return;

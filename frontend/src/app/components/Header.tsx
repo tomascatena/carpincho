@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
@@ -106,6 +105,26 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
     navigate('/cart');
   };
 
+  const handleProfileClick = () => {
+    handleMenuClose();
+    navigate('/profile');
+  };
+
+  const handleMyAccountClick = () => {
+    handleMenuClose();
+    navigate('/my-account');
+  };
+
+  const handleLoginClick = () => {
+    handleMenuClose();
+    navigate('/login');
+  };
+
+  const handleLogoutClick = () => {
+    handleMenuClose();
+    navigate('/logout');
+  };
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -123,13 +142,13 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
 
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMyAccountClick}>My account</MenuItem>
 
-      <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+      <MenuItem onClick={handleLoginClick}>Login</MenuItem>
 
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
     </Menu>
   );
 
