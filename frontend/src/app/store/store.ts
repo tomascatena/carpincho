@@ -6,6 +6,7 @@ import userReducer from './features/user/userSlice';
 import { cartMiddleware } from './features/cart/cart.middleware';
 import { logger } from './middleware/logger.middleware';
 import { getCartITemsFromLocalStorage } from './getCartItemsFromLocalStorage';
+import { getUserInfoFromLocalStorage } from './getUserInfoFromLocalStorage';
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
 });
 
 getCartITemsFromLocalStorage();
+getUserInfoFromLocalStorage();
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

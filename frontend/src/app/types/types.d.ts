@@ -20,9 +20,10 @@ export interface Token {
 }
 
 export interface IUser {
+  _id: string;
   name: string;
   email: string;
-  password: string;
+  password?: string;
   role: string;
   isEmailVerified: boolean;
   tokens?: { access: Token; refresh: Token };

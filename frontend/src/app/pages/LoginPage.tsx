@@ -20,7 +20,6 @@ const FormBox = styled('form')({
 
 const LoginPage: FC = () => {
   const [showError, setShowError] = useState(false);
-
   const [email, setEmail] = useState({
     value: '',
     isValidated: false,
@@ -47,7 +46,9 @@ const LoginPage: FC = () => {
     setPassword({ ...password, isValidated: true });
 
     dispatch(userLogin({ email: email.value, password: password.value }));
+  };
 
+  useEffect(() => {
     if (user && !error && loading !== 'pending') {
       if (redirect) {
         navigate(`/${redirect}`);
@@ -55,7 +56,7 @@ const LoginPage: FC = () => {
         navigate('/');
       }
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     if (error) {
@@ -142,7 +143,7 @@ const LoginPage: FC = () => {
             setPassword({
               ...password,
               value: e.target.value,
-              isValid: e.target.value.length > 5,
+              isValid: e.target.value.length >= 5,
             })
           }
           helperText={

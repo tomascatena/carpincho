@@ -16,7 +16,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MaterialUISwitch from './MUISwitch';
-import { useTypedSelector } from '../hooks';
+import { useTypedSelector, useActions } from '../hooks';
 import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
@@ -65,6 +65,7 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
+  const { userLogout } = useActions();
   const navigate = useNavigate();
   const { cartItems } = useTypedSelector((state) => state.cart);
 
@@ -122,7 +123,8 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
 
   const handleLogoutClick = () => {
     handleMenuClose();
-    navigate('/logout');
+    userLogout();
+    navigate('/');
   };
 
   const menuId = 'primary-search-account-menu';
@@ -222,7 +224,11 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
               <MenuIcon />
             </IconButton>
 
-            <Button onClick={() => navigate('/')} variant='text'>
+            <Button
+              onClick={() => navigate('/')}
+              variant='text'
+              color='inherit'
+            >
               Carpincho
             </Button>
 

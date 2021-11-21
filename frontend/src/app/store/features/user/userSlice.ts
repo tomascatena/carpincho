@@ -1,4 +1,4 @@
-import { createSlice, SerializedError } from '@reduxjs/toolkit';
+import { createSlice, SerializedError, PayloadAction } from '@reduxjs/toolkit';
 import { IUser, Nullable } from '../../../types/types';
 import { userLogin } from './user.thunk';
 
@@ -20,10 +20,15 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    hydrateUserInfo: (state, action: PayloadAction<IUser>) => {
+      state.user = action.payload;
+    },
     userLogout(state) {
       state.user = null;
       state.loading = 'idle';
       state.error = null;
+
+      localStorage.removeItem('userInfo');
     },
   },
   extraReducers: (builder) => {
@@ -45,6 +50,8 @@ export const userSlice = createSlice({
           state.user = action.payload;
           state.loading = 'idle';
           state.currentRequestId = undefined;
+
+          localStorage.setItem('userInfo', JSON.stringify(state.user));
         }
       })
       .addCase(userLogin.rejected, (state, action) => {
