@@ -70,3 +70,68 @@ export const userRegister = createAsyncThunk<
     }
   }
 );
+
+export const getUserProfile = createAsyncThunk<
+  IUser,
+  string,
+  { state: RootState }
+>('user/getUserProfile', async (id, { getState, requestId, dispatch }) => {
+  const { loading, currentRequestId, user } = getState().user;
+
+  if (loading !== 'pending' || requestId !== currentRequestId) {
+    return;
+  }
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${user?.tokens?.refresh}`,
+    },
+  };
+
+  try {
+    const { data } = await axios.get(`/api/v1/users/${id}`, config);
+
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      dispatch(userActions.setError(error.response?.data.message));
+    }
+  }
+});
+
+export const updateUserProfile = createAsyncThunk<
+  IUser,
+  Pick<IUser, 'name' | 'email' | 'password'>,
+  { state: RootState }
+>(
+  'user/updateUserProfile',
+  async (userDetailsToUpdate, { getState, requestId, dispatch }) => {
+    const { loading, currentRequestId, user } = getState().user;
+
+    if (loading !== 'pending' || requestId !== currentRequestId) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user?.tokens?.refresh}`,
+      },
+    };
+
+    try {
+      const { data } = await axios.put(
+        '/api/v1/users/profile',
+        userDetailsToUpdate,
+        config
+      );
+
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        dispatch(userActions.setError(error.response?.data.message));
+      }
+    }
+  }
+);

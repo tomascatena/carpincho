@@ -13,6 +13,7 @@ import ProductPage from './app/pages/ProductPage';
 import CartPage from './app/pages/CartPage';
 import LoginPage from './app/pages/LoginPage';
 import RegisterPage from './app/pages/RegisterPage';
+import UserProfilePage from './app/pages/UserProfilePage';
 
 const MainLayout = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
@@ -46,6 +47,8 @@ const App: FC = () => {
               <Route path='/login' element={<LoginPage />} />
 
               <Route path='/register' element={<RegisterPage />} />
+
+              <Route path='/profile' element={<UserProfilePage />} />
 
               <Route path='/cart'>
                 <Route path=':productId' element={<CartPage />} />
