@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, validationResult, header } from 'express-validator';
 import httpStatus from 'http-status';
+import { optional } from 'joi';
 import config from '../config/config';
 
 export const loginUser = [
@@ -73,6 +74,29 @@ export const getUserProfile = [
       return res.status(httpStatus.UNAUTHORIZED).json({
         message: 'Invalid credentials',
         ...(config.NODE_ENV === 'development' && { errors: errors.mapped() }),
+      });
+    }
+
+    next();
+  },
+];
+
+export const updateProfile = [
+  body('name').optional().isString().trim().isLength({ min: 2 }).escape(),
+  body('email').optional().isEmail().normalizeEmail(),
+  body('password')
+    .optional()
+    .trim()
+    .isLength({ min: config.MIN_PASSWORD_LENGTH })
+    .escape(),
+
+  (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(httpStatus.BAD_REQUEST).json({
+        message: 'Missing required fields',
+        errors: errors.mapped(),
       });
     }
 

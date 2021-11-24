@@ -99,3 +99,40 @@ export const getUserProfile = catchAsync(
     }
   }
 );
+
+// @desc    Update user profile
+// @route   PUT /api/v1/users/profile
+// @access  Private
+export const updateUserProfile = catchAsync(
+  async (req: RequestWithBody, res: Response) => {
+    if (req.user) {
+      const user = await User.findById(req.user._id);
+
+      if (user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+        if (req.body.password) {
+          user.password = req.body.password;
+        }
+
+        const updatedUser = await user.save();
+
+        res.status(httpStatus.OK).json({
+          _id: updatedUser._id,
+          name: updatedUser.name,
+          email: updatedUser.email,
+          role: updatedUser.role,
+          isEmailVerified: updatedUser.isEmailVerified,
+        });
+      } else {
+        res.status(httpStatus.NOT_FOUND);
+
+        throw new Error('User not found');
+      }
+    } else {
+      res.status(httpStatus.UNAUTHORIZED).json({
+        message: 'Invalid credentials',
+      });
+    }
+  }
+);
