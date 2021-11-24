@@ -50,7 +50,7 @@ const UserProfilePage: FC = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      navigate('/login?redirect=profile');
     } else {
       setName({ ...name, value: user.name, isValid: true });
       setEmail({ ...email, value: user.email, isValid: true });
@@ -93,9 +93,9 @@ const UserProfilePage: FC = () => {
     !name.isValid ||
     loading === 'pending' ||
     ((Boolean(password.value) || Boolean(confirmPassword.value)) &&
-      !password.isValid) ||
-    !confirmPassword.isValid ||
-    password.value !== confirmPassword.value;
+      (!password.isValid ||
+        !confirmPassword.isValid ||
+        password.value !== confirmPassword.value));
 
   const isPasswordError =
     (password.value !== '' && password.isValidated && !password.isValid) ||

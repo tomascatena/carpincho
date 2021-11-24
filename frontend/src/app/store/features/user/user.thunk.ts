@@ -8,30 +8,39 @@ export const userLogin = createAsyncThunk<
   IUser,
   Pick<IUser, 'email' | 'password'>,
   { state: RootState }
->('user/userLogin', async ({ email, password }, { getState, requestId }) => {
-  const { loading, currentRequestId } = getState().user;
+>(
+  'user/userLogin',
+  async ({ email, password }, { getState, requestId, dispatch }) => {
+    const { loading, currentRequestId } = getState().user;
 
-  if (loading !== 'pending' || requestId !== currentRequestId) {
-    return;
+    if (loading !== 'pending' || requestId !== currentRequestId) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        '/api/v1/users/login',
+        {
+          email,
+          password,
+        },
+        config
+      );
+
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        dispatch(userActions.setError(error.response?.data.message));
+      }
+    }
   }
-
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const { data } = await axios.post(
-    '/api/v1/users/login',
-    {
-      email,
-      password,
-    },
-    config
-  );
-
-  return data;
-});
+);
 
 export const userRegister = createAsyncThunk<
   IUser,
@@ -85,7 +94,7 @@ export const getUserProfile = createAsyncThunk<
   const config = {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${user?.tokens?.refresh}`,
+      Authorization: `Bearer ${user?.tokens?.access}`,
     },
   };
 
@@ -102,7 +111,7 @@ export const getUserProfile = createAsyncThunk<
 
 export const updateUserProfile = createAsyncThunk<
   IUser,
-  Pick<IUser, 'name' | 'email' | 'password'>,
+  Partial<Pick<IUser, 'name' | 'email' | 'password'>>,
   { state: RootState }
 >(
   'user/updateUserProfile',
@@ -116,7 +125,7 @@ export const updateUserProfile = createAsyncThunk<
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${user?.tokens?.refresh}`,
+        Authorization: `Bearer ${user?.tokens?.access.token}`,
       },
     };
 

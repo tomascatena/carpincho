@@ -140,7 +140,6 @@ export const userSlice = createSlice({
       })
       .addCase(updateUserProfile.pending, (state, action) => {
         if (state.loading === 'idle') {
-          state.user = null;
           state.loading = 'pending';
           state.error = null;
           state.currentRequestId = action.meta.requestId;
