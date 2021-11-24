@@ -147,25 +147,17 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {!user ? (
-        <MenuItem onClick={handleLoginClick} sx={{ minWidth: 150 }}>
-          Login
-        </MenuItem>
-      ) : (
-        <>
-          <MenuItem onClick={handleProfileClick} sx={{ minWidth: 150 }}>
-            Profile
-          </MenuItem>
+      <MenuItem onClick={handleProfileClick} sx={{ minWidth: 150 }}>
+        Profile
+      </MenuItem>
 
-          <MenuItem onClick={handleMyAccountClick} sx={{ minWidth: 150 }}>
-            My account
-          </MenuItem>
+      <MenuItem onClick={handleMyAccountClick} sx={{ minWidth: 150 }}>
+        My account
+      </MenuItem>
 
-          <MenuItem onClick={handleLogoutClick} sx={{ minWidth: 150 }}>
-            Logout
-          </MenuItem>
-        </>
-      )}
+      <MenuItem onClick={handleLogoutClick} sx={{ minWidth: 150 }}>
+        Logout
+      </MenuItem>
     </Menu>
   );
 

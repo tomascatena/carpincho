@@ -107,7 +107,6 @@ const LoginPage: FC = () => {
 
       <FormBox noValidate onSubmit={handleSubmit}>
         <TextField
-          id='standard-basic'
           label='Email'
           variant='standard'
           fullWidth
@@ -130,7 +129,6 @@ const LoginPage: FC = () => {
         />
 
         <TextField
-          id='standard-basic'
           label='Password'
           fullWidth
           required
@@ -177,7 +175,7 @@ const LoginPage: FC = () => {
       >
         Don&lsquo;t have an account?{' '}
         <Link
-          to={redirect ? `/register/${redirect}` : '/register'}
+          to={redirect ? `/register/?redirect=${redirect}` : '/register'}
           style={{ color: 'inherit' }}
         >
           Register here

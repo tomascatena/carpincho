@@ -3,8 +3,6 @@ import productsReducer from './features/products/productsSlice';
 import productDetailsReducer from './features/productDetails/productDetailsSlice';
 import cartReducer from './features/cart/cartSlice';
 import userReducer from './features/user/userSlice';
-import { cartMiddleware } from './features/cart/cart.middleware';
-import { logger } from './middleware/logger.middleware';
 import { getCartITemsFromLocalStorage } from './getCartItemsFromLocalStorage';
 import { getUserInfoFromLocalStorage } from './getUserInfoFromLocalStorage';
 
@@ -14,9 +12,6 @@ export const store = configureStore({
     productDetails: productDetailsReducer,
     cart: cartReducer,
     user: userReducer,
-  },
-  middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(cartMiddleware, logger);
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

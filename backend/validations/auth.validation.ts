@@ -32,12 +32,25 @@ export const registerNewUser = [
     .trim()
     .isLength({ min: config.MIN_PASSWORD_LENGTH })
     .escape(),
+  body('confirmPassword')
+    .not()
+    .isEmpty()
+    .trim()
+    .isLength({ min: config.MIN_PASSWORD_LENGTH })
+    .escape(),
   (req: Request, res: Response, next: NextFunction) => {
+    const { password, confirmPassword } = req.body;
+
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       return res.status(httpStatus.BAD_REQUEST).json({
         message: 'Missing required fields',
         errors: errors.mapped(),
+      });
+    } else if (password !== confirmPassword) {
+      return res.status(httpStatus.BAD_REQUEST).json({
+        message: 'Passwords must match',
       });
     }
 

@@ -9,6 +9,7 @@
     "@mui/icons-material": "^5.0.5",
     "@mui/material": "^5.0.6",
     "@mui/styled-engine": "^5.0.2",
+    "@mui/styles": "^5.2.0",
     "@mui/system": "^5.0.6",
     "@reduxjs/toolkit": "^1.6.2",
     "axios": "^0.24.0",

@@ -36,7 +36,7 @@ const CartItemsList: FC<Props> = ({ cartItems }) => {
     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       {cartItems.map((item) => {
         return (
-          <>
+          <div key={item.product}>
             <Grid
               display='flex'
               justifyContent='center'
@@ -125,7 +125,7 @@ const CartItemsList: FC<Props> = ({ cartItems }) => {
             </Grid>
 
             <Divider />
-          </>
+          </div>
         );
       })}
     </List>
