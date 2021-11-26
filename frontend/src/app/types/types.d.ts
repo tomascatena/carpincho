@@ -55,3 +55,10 @@ export interface ICartItem {
   name: string;
   countInStock: number;
 }
+
+export interface ShippingAddress {
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+}

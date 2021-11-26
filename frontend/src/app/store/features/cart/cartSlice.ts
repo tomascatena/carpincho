@@ -1,8 +1,14 @@
 import { createSlice, SerializedError, PayloadAction } from '@reduxjs/toolkit';
-import { IAddCartItem, ICartItem } from '../../../types/types';
+import {
+  IAddCartItem,
+  ICartItem,
+  ShippingAddress,
+  Nullable,
+} from '../../../types/types';
 
 export interface CartState {
   cartItems: ICartItem[];
+  shippingAddress: Nullable<ShippingAddress>;
   loading: 'idle' | 'pending';
   currentRequestId: string | undefined;
   error: SerializedError | null;
@@ -10,6 +16,7 @@ export interface CartState {
 
 const initialState: CartState = {
   cartItems: [],
+  shippingAddress: null,
   loading: 'idle',
   currentRequestId: undefined,
   error: null,
@@ -21,6 +28,9 @@ export const cartSlice = createSlice({
   reducers: {
     hydrateCartItem: (state, action: PayloadAction<ICartItem[]>) => {
       state.cartItems = action.payload;
+    },
+    hydrateShippingAddress: (state, action: PayloadAction<ShippingAddress>) => {
+      state.shippingAddress = action.payload;
     },
     addCartItem(state, action: PayloadAction<IAddCartItem>) {
       const { item, quantity } = action.payload;
@@ -78,6 +88,14 @@ export const cartSlice = createSlice({
 
         localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
       }
+    },
+    saveShippingAddress(state, action: PayloadAction<ShippingAddress>) {
+      state.shippingAddress = action.payload;
+
+      localStorage.setItem(
+        'shippingAddress',
+        JSON.stringify(state.shippingAddress)
+      );
     },
   },
 });

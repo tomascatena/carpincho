@@ -3,7 +3,7 @@ import productsReducer from './features/products/productsSlice';
 import productDetailsReducer from './features/productDetails/productDetailsSlice';
 import cartReducer from './features/cart/cartSlice';
 import userReducer from './features/user/userSlice';
-import { getCartITemsFromLocalStorage } from './getCartItemsFromLocalStorage';
+import { getCartStateFromLocalStorage } from './getCartStateFromLocalStorage';
 import { getUserInfoFromLocalStorage } from './getUserInfoFromLocalStorage';
 
 export const store = configureStore({
@@ -16,7 +16,7 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
 });
 
-getCartITemsFromLocalStorage();
+getCartStateFromLocalStorage();
 getUserInfoFromLocalStorage();
 
 export type AppDispatch = typeof store.dispatch;
