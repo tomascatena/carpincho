@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import AlertTitle from '@mui/material/AlertTitle';
 import Fade from '@mui/material/Fade';
 import { styled } from '@mui/material/styles';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const FormBox = styled('form')({
   display: 'flex',
@@ -134,6 +135,7 @@ const ShippingPage: FC = () => {
 
   return (
     <Container maxWidth='sm'>
+      <CheckoutSteps />
       <Typography
         variant='h3'
         component='h1'
