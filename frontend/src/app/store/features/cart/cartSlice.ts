@@ -1,10 +1,39 @@
 import { createSlice, SerializedError, PayloadAction } from '@reduxjs/toolkit';
+import { CHECKOUT_STEPS } from '../../../constants/constants';
 import {
   IAddCartItem,
   ICartItem,
   ShippingAddress,
   Nullable,
-} from '../../../types/types';
+  CheckoutStep,
+} from '../../../types/types.d';
+
+const checkoutSteps = [
+  {
+    id: CHECKOUT_STEPS.LOGIN,
+    label: 'Sign In',
+    link: '/login?redirect=shipping',
+    completed: false,
+  },
+  {
+    id: CHECKOUT_STEPS.SHIPPING_ADDRESS,
+    label: 'Shipping Address',
+    link: '/shipping',
+    completed: false,
+  },
+  {
+    id: CHECKOUT_STEPS.PAYMENT,
+    label: 'Payment',
+    link: '/payment',
+    completed: false,
+  },
+  {
+    id: CHECKOUT_STEPS.SHIPPING_ADDRESS,
+    label: 'Place Order',
+    link: '/order',
+    completed: false,
+  },
+];
 
 export interface CartState {
   cartItems: ICartItem[];
@@ -12,6 +41,7 @@ export interface CartState {
   loading: 'idle' | 'pending';
   currentRequestId: string | undefined;
   error: SerializedError | null;
+  checkoutSteps: CheckoutStep[];
 }
 
 const initialState: CartState = {
@@ -20,6 +50,7 @@ const initialState: CartState = {
   loading: 'idle',
   currentRequestId: undefined,
   error: null,
+  checkoutSteps: checkoutSteps,
 };
 
 export const cartSlice = createSlice({
@@ -96,6 +127,16 @@ export const cartSlice = createSlice({
         'shippingAddress',
         JSON.stringify(state.shippingAddress)
       );
+    },
+    resetCheckoutSteps(state) {
+      state.checkoutSteps.forEach((step) => (step.completed = false));
+    },
+    setCheckoutStepCompleted(state, action: PayloadAction<string>) {
+      state.checkoutSteps.forEach((step) => {
+        if (step.id === action.payload) {
+          step.completed = true;
+        }
+      });
     },
   },
 });
