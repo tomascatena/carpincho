@@ -1,6 +1,6 @@
 import React, { FC, useState, FormEvent, useEffect } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
-import { useAppDispatch, useTypedSelector } from '../hooks';
+import { useAppDispatch, useTypedSelector, useActions } from '../hooks';
 import { userLogin } from '../store/features/user/user.thunk';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
@@ -11,6 +11,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Fade from '@mui/material/Fade';
 import { styled } from '@mui/material/styles';
+import { CHECKOUT_STEPS } from '../constants/constants';
 
 const FormBox = styled('form')({
   display: 'flex',
@@ -35,6 +36,7 @@ const LoginPage: FC = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { setCheckoutStepCompleted } = useActions();
 
   const [searchParams] = useSearchParams();
   const redirect = searchParams.get('redirect');
@@ -45,6 +47,7 @@ const LoginPage: FC = () => {
     setEmail({ ...email, isValidated: true });
     setPassword({ ...password, isValidated: true });
     
+    setCheckoutStepCompleted(CHECKOUT_STEPS.LOGIN);
     dispatch(userLogin({ email: email.value, password: password.value }));
   };
 

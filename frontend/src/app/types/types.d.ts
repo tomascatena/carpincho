@@ -70,4 +70,5 @@ export interface CheckoutStep {
   label: string;
   link: string;
   completed: boolean;
+  isActive: boolean;
 }

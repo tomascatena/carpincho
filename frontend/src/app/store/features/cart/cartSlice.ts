@@ -14,24 +14,28 @@ const checkoutSteps = [
     label: 'Sign In',
     link: '/login?redirect=shipping',
     completed: false,
+    isActive: false,
   },
   {
     id: CHECKOUT_STEPS.SHIPPING_ADDRESS,
     label: 'Shipping Address',
     link: '/shipping',
     completed: false,
+    isActive: false,
   },
   {
     id: CHECKOUT_STEPS.PAYMENT,
     label: 'Payment',
     link: '/payment',
     completed: false,
+    isActive: false,
   },
   {
     id: CHECKOUT_STEPS.SHIPPING_ADDRESS,
     label: 'Place Order',
     link: '/order',
     completed: false,
+    isActive: false,
   },
 ];
 
@@ -129,14 +133,27 @@ export const cartSlice = createSlice({
       );
     },
     resetCheckoutSteps(state) {
-      state.checkoutSteps.forEach((step) => (step.completed = false));
+      state.checkoutSteps.forEach((step) => {
+        step.completed = false;
+        step.isActive = false;
+      });
     },
     setCheckoutStepCompleted(state, action: PayloadAction<string>) {
-      state.checkoutSteps.forEach((step) => {
+      console.log('setCheckoutStepCompleted');
+      let nextActiveStep;
+      state.checkoutSteps.forEach((step, i) => {
         if (step.id === action.payload) {
           step.completed = true;
+          step.isActive = false;
+          nextActiveStep = i + 1;
         }
       });
+
+      console.log(nextActiveStep);
+
+      if (nextActiveStep && nextActiveStep < checkoutSteps.length) {
+        state.checkoutSteps[nextActiveStep].isActive = true;
+      }
     },
   },
 });

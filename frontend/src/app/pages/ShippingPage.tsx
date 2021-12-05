@@ -13,6 +13,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Fade from '@mui/material/Fade';
 import { styled } from '@mui/material/styles';
 import CheckoutSteps from '../components/CheckoutSteps';
+import { CHECKOUT_STEPS } from '../constants/constants';
 
 const FormBox = styled('form')({
   display: 'flex',
@@ -88,7 +89,7 @@ const ShippingPage: FC = () => {
   }, [shippingAddress]);
 
   const navigate = useNavigate();
-  const { saveShippingAddress } = useActions();
+  const { saveShippingAddress, setCheckoutStepCompleted } = useActions();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -100,6 +101,7 @@ const ShippingPage: FC = () => {
       country: country.value,
     });
 
+    setCheckoutStepCompleted(CHECKOUT_STEPS.SHIPPING_ADDRESS);
     navigate('/payment');
   };
 
