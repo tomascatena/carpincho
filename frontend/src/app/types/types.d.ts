@@ -1,3 +1,5 @@
+import { CHECKOUT_STEPS } from '../constants/constants';
+
 export type Nullable<T> = T | null;
 
 export interface IProduct {
@@ -61,4 +63,11 @@ export interface ShippingAddress {
   city: string;
   postalCode: string;
   country: string;
+}
+
+export interface CheckoutStep {
+  id: string;
+  label: string;
+  link: string;
+  completed: boolean;
 }
