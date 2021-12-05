@@ -10,14 +10,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Fade from '@mui/material/Fade';
-import { styled } from '@mui/material/styles';
 import { ROUTES } from '../constants/constants';
-
-const FormBox = styled('form')({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 2,
-});
+import { FormBox } from '../components/styledComponents/FormBox';
 
 const RegisterPage: FC = () => {
   const [showError, setShowError] = useState(false);

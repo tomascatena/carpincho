@@ -1,9 +1,5 @@
 import { createSlice, SerializedError, PayloadAction } from '@reduxjs/toolkit';
-import {
-  CHECKOUT_STEPS,
-  PAYMENT_METHODS,
-  ROUTES,
-} from '../../../constants/constants';
+import { CHECKOUT_STEPS, ROUTES } from '../../../constants/constants';
 import {
   IAddCartItem,
   ICartItem,
@@ -16,7 +12,10 @@ const checkoutSteps = [
   {
     id: CHECKOUT_STEPS.LOGIN,
     label: 'Sign In',
-    link: `${ROUTES.LOGIN}?redirect=shipping`,
+    link: `${ROUTES.LOGIN}?redirect=${ROUTES.SHIPPING_ADDRESS.replace(
+      '/',
+      ''
+    )}`,
     completed: false,
     isActive: false,
   },

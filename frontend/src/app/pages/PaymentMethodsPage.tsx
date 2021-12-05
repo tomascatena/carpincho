@@ -1,36 +1,25 @@
-import React, { FC, useState, FormEvent, useEffect } from 'react';
+import React, { FC, useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTypedSelector, useActions } from '../hooks';
 import Container from '@mui/material/Container';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
-import { styled } from '@mui/material/styles';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import { FormBox } from '../components/styledComponents/FormBox';
 import CheckoutSteps from '../components/CheckoutSteps';
-import { CHECKOUT_STEPS, ROUTES } from '../constants/constants';
-
-const FormBox = styled('form')({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 2,
-});
-
-interface FormField {
-  value: string;
-  isValidated: boolean;
-  isValid: boolean;
-}
-
-const emptyFormField: FormField = {
-  value: '',
-  isValidated: false,
-  isValid: false,
-};
+import {
+  CHECKOUT_STEPS,
+  PAYMENT_METHODS,
+  ROUTES,
+} from '../constants/constants';
 
 const PaymentMethodsPage: FC = () => {
   const navigate = useNavigate();
-  const { saveShippingAddress, setCheckoutStepCompleted } = useActions();
+  const { savePaymentMethod, setCheckoutStepCompleted } = useActions();
 
   const [paymentMethod, setPaymentMethod] = useState('paypal');
 
@@ -40,101 +29,13 @@ const PaymentMethodsPage: FC = () => {
     navigate(ROUTES.SHIPPING_ADDRESS);
   }
 
-  const [address, setAddress] = useState({
-    ...emptyFormField,
-    value: shippingAddress?.address || '',
-  });
-  const [city, setCity] = useState({
-    ...emptyFormField,
-    value: shippingAddress?.city || '',
-  });
-  const [postalCode, setPostalCode] = useState({
-    ...emptyFormField,
-    value: shippingAddress?.postalCode || '',
-  });
-  const [country, setCountry] = useState({
-    ...emptyFormField,
-    value: shippingAddress?.country || '',
-  });
-
-  const setInitialState = () => {
-    if (shippingAddress?.address) {
-      setAddress({
-        value: shippingAddress.address,
-        isValidated: true,
-        isValid: true,
-      });
-    }
-    if (shippingAddress?.city) {
-      setCity({
-        value: shippingAddress.city,
-        isValidated: true,
-        isValid: true,
-      });
-    }
-    if (shippingAddress?.postalCode) {
-      setPostalCode({
-        value: shippingAddress.postalCode,
-        isValidated: true,
-        isValid: true,
-      });
-    }
-    if (shippingAddress?.country) {
-      setCountry({
-        value: shippingAddress.country,
-        isValidated: true,
-        isValid: true,
-      });
-    }
-  };
-
-  useEffect(() => {
-    setInitialState();
-  }, [shippingAddress]);
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    saveShippingAddress({
-      address: address.value,
-      city: city.value,
-      postalCode: postalCode.value,
-      country: country.value,
-    });
-
+    savePaymentMethod(paymentMethod);
     setCheckoutStepCompleted(CHECKOUT_STEPS.PAYMENT);
     navigate(ROUTES.PLACE_ORDER);
   };
-
-  const helperTextAddress = () => {
-    if (address.isValidated && !address.isValid) {
-      return 'Address is required.';
-    }
-  };
-
-  const helperTextCity = () => {
-    if (address.isValidated && !address.isValid) {
-      return 'City is required.';
-    }
-  };
-
-  const helperTextPostalCode = () => {
-    if (address.isValidated && !address.isValid) {
-      return 'PostalCode is required.';
-    }
-  };
-
-  const helperTextCountry = () => {
-    if (address.isValidated && !address.isValid) {
-      return 'Country is required.';
-    }
-  };
-
-  const isButtonDisabled =
-    !address.isValid ||
-    !city.isValid ||
-    !postalCode.isValid ||
-    !country.isValid;
 
   return (
     <Container maxWidth='sm'>
@@ -149,91 +50,35 @@ const PaymentMethodsPage: FC = () => {
       </Typography>
 
       <FormBox noValidate onSubmit={handleSubmit}>
-        <TextField
-          label='Address'
-          variant='standard'
-          fullWidth
-          required
-          type='text'
-          value={address.value}
-          error={address.isValidated && !address.isValid}
-          onBlur={() => setAddress({ ...address, isValidated: true })}
-          onChange={(e) =>
-            setAddress({
-              ...address,
-              value: e.target.value,
-              isValid: e.target.value.length >= 2,
-            })
-          }
-          helperText={helperTextAddress()}
-          sx={{ minHeight: '5rem' }}
-        />
+        <FormControl component='fieldset'>
+          <FormLabel component='legend'>Payment Method</FormLabel>
 
-        <TextField
-          label='City'
-          variant='standard'
-          fullWidth
-          required
-          type='text'
-          value={city.value}
-          error={city.isValidated && !city.isValid}
-          onBlur={() => setCity({ ...city, isValidated: true })}
-          onChange={(e) =>
-            setCity({
-              ...city,
-              value: e.target.value,
-              isValid: e.target.value.length >= 2,
-            })
-          }
-          helperText={helperTextCity()}
-          sx={{ minHeight: '5rem' }}
-        />
+          <RadioGroup
+            defaultValue={PAYMENT_METHODS.PAYPAL}
+            aria-label='payment-method'
+            name='radio-buttons-select-payment-method'
+            onChange={(e) => setPaymentMethod(e.target.value)}
+            sx={{ gap: 2 }}
+          >
+            <FormControlLabel
+              value={PAYMENT_METHODS.PAYPAL}
+              control={<Radio />}
+              label='PayPal or Credit Card'
+            />
 
-        <TextField
-          label='Postal Code'
-          variant='standard'
-          fullWidth
-          required
-          type='text'
-          value={postalCode.value}
-          error={postalCode.isValidated && !postalCode.isValid}
-          onBlur={() => setPostalCode({ ...postalCode, isValidated: true })}
-          onChange={(e) =>
-            setPostalCode({
-              ...postalCode,
-              value: e.target.value,
-              isValid: e.target.value.length >= 2,
-            })
-          }
-          helperText={helperTextPostalCode()}
-          sx={{ minHeight: '5rem' }}
-        />
-
-        <TextField
-          label='Country'
-          variant='standard'
-          fullWidth
-          required
-          type='text'
-          value={country.value}
-          error={country.isValidated && !country.isValid}
-          onBlur={() => setCountry({ ...country, isValidated: true })}
-          onChange={(e) =>
-            setCountry({
-              ...country,
-              value: e.target.value,
-              isValid: e.target.value.length >= 2,
-            })
-          }
-          helperText={helperTextCountry()}
-          sx={{ minHeight: '5rem' }}
-        />
+            <FormControlLabel
+              value={PAYMENT_METHODS.STRIPE}
+              disabled
+              control={<Radio />}
+              label={PAYMENT_METHODS.STRIPE}
+            />
+          </RadioGroup>
+        </FormControl>
 
         <Button
           variant='contained'
-          sx={{ marginTop: 2, paddingTop: 1, paddingBottom: 1 }}
+          sx={{ marginTop: 5, paddingTop: 1, paddingBottom: 1 }}
           type='submit'
-          disabled={isButtonDisabled}
         >
           Continue
         </Button>

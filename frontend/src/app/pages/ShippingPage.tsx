@@ -5,20 +5,9 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
-import { styled } from '@mui/material/styles';
 import CheckoutSteps from '../components/CheckoutSteps';
-import {
-  CHECKOUT_STEPS,
-  PAYMENT_METHODS,
-  ROUTES,
-} from '../constants/constants';
-
-const FormBox = styled('form')({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 2,
-});
+import { CHECKOUT_STEPS, ROUTES } from '../constants/constants';
+import { FormBox } from '../components/styledComponents/FormBox';
 
 interface FormField {
   value: string;

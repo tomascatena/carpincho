@@ -51,7 +51,7 @@ const UserProfilePage: FC = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate(`${ROUTES.LOGIN}?redirect=profile`);
+      navigate(`${ROUTES.LOGIN}?redirect=${ROUTES.PROFILE.replace('/', '')}`);
     } else {
       setName({ ...name, value: user.name, isValid: true });
       setEmail({ ...email, value: user.email, isValid: true });

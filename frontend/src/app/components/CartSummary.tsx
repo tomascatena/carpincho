@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../constants/constants';
 
 interface Props {
   cartItems: ICartItem[];
@@ -16,7 +17,9 @@ const CartSummary: FC<Props> = ({ cartItems }) => {
   const navigate = useNavigate();
 
   const checkoutHandler = () => {
-    navigate('/login?redirect=shipping');
+    navigate(
+      `${ROUTES.LOGIN}?redirect=${ROUTES.SHIPPING_ADDRESS.replace('/', '')}`
+    );
   };
 
   return (
