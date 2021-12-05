@@ -20,3 +20,5 @@ export const ROUTES = {
   CART: '/cart',
   PRODUCT: '/product',
 };
+
+export const TAX_RATE = 0.17;

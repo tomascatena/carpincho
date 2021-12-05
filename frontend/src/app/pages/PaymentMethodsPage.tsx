@@ -1,4 +1,4 @@
-import React, { FC, useState, FormEvent } from 'react';
+import React, { FC, useState, FormEvent, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTypedSelector, useActions } from '../hooks';
 import Container from '@mui/material/Container';
@@ -21,7 +21,7 @@ const PaymentMethodsPage: FC = () => {
   const navigate = useNavigate();
   const { savePaymentMethod, setCheckoutStepCompleted } = useActions();
 
-  const [paymentMethod, setPaymentMethod] = useState('paypal');
+  const [paymentMethod, setPaymentMethod] = useState(PAYMENT_METHODS.PAYPAL);
 
   const { shippingAddress } = useTypedSelector((state) => state.cart);
 
@@ -40,6 +40,7 @@ const PaymentMethodsPage: FC = () => {
   return (
     <Container maxWidth='sm'>
       <CheckoutSteps />
+
       <Typography
         variant='h3'
         component='h1'
@@ -68,7 +69,6 @@ const PaymentMethodsPage: FC = () => {
 
             <FormControlLabel
               value={PAYMENT_METHODS.STRIPE}
-              disabled
               control={<Radio />}
               label={PAYMENT_METHODS.STRIPE}
             />

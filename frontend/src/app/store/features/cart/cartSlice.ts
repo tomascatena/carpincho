@@ -1,5 +1,5 @@
 import { createSlice, SerializedError, PayloadAction } from '@reduxjs/toolkit';
-import { CHECKOUT_STEPS, ROUTES } from '../../../constants/constants';
+import { CHECKOUT_STEPS, ROUTES, TAX_RATE } from '../../../constants/constants';
 import {
   IAddCartItem,
   ICartItem,
@@ -50,6 +50,10 @@ export interface CartState {
   error: SerializedError | null;
   checkoutSteps: CheckoutStep[];
   paymentMethod: Nullable<string>;
+  itemsPrice: Nullable<number>;
+  taxPrice: Nullable<number>;
+  shippingPrice: Nullable<number>;
+  totalPrice: Nullable<number>;
 }
 
 const initialState: CartState = {
@@ -60,6 +64,23 @@ const initialState: CartState = {
   error: null,
   checkoutSteps: checkoutSteps,
   paymentMethod: null,
+  itemsPrice: null,
+  taxPrice: null,
+  shippingPrice: null,
+  totalPrice: null,
+};
+
+const calculatePrices = (state: CartState): void => {
+  state.itemsPrice = state.cartItems.reduce(
+    (accumulatedPrice, item) => accumulatedPrice + item.quantity * item.price,
+    0
+  );
+
+  state.shippingPrice = state.itemsPrice > 50 ? 0 : 7;
+
+  state.taxPrice = state.itemsPrice * TAX_RATE;
+
+  state.totalPrice = state.itemsPrice + state.shippingPrice + state.taxPrice;
 };
 
 export const cartSlice = createSlice({
@@ -68,6 +89,8 @@ export const cartSlice = createSlice({
   reducers: {
     hydrateCartItem: (state, action: PayloadAction<ICartItem[]>) => {
       state.cartItems = action.payload;
+
+      calculatePrices(state);
     },
     hydrateShippingAddress: (state, action: PayloadAction<ShippingAddress>) => {
       state.shippingAddress = action.payload;
@@ -103,6 +126,8 @@ export const cartSlice = createSlice({
         });
       }
 
+      calculatePrices(state);
+
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
     },
     removeCartItem(state, action: PayloadAction<string>) {
@@ -111,6 +136,11 @@ export const cartSlice = createSlice({
       state.cartItems = state.cartItems.filter(
         (cartItem) => cartItem.product !== productId
       );
+
+      state.itemsPrice = null;
+      state.taxPrice = null;
+      state.shippingPrice = null;
+      state.totalPrice = null;
 
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
     },

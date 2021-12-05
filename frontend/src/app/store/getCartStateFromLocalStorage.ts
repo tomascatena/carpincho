@@ -29,7 +29,7 @@ export const getCartStateFromLocalStorage = (): void => {
     if (persistedPaymentMethod) {
       const paymentMethod = JSON.parse(persistedPaymentMethod);
 
-      store.dispatch(cartActions.hydrateCheckoutSteps(paymentMethod));
+      store.dispatch(cartActions.hydratePaymentMethod(paymentMethod));
     }
   } catch (error) {
     console.log(error);

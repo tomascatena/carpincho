@@ -17,6 +17,7 @@ import UserProfilePage from './app/pages/UserProfilePage';
 import ShippingPage from './app/pages/ShippingPage';
 import PaymentMethodsPage from './app/pages/PaymentMethodsPage';
 import { ROUTES } from './app/constants/constants';
+import PlaceOrderPage from './app/pages/PlaceOrderPage';
 
 const MainLayout = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
@@ -65,6 +66,8 @@ const App: FC = () => {
                 path={ROUTES.PAYLMENT_METHOD}
                 element={<PaymentMethodsPage />}
               />
+
+              <Route path={ROUTES.PLACE_ORDER} element={<PlaceOrderPage />} />
 
               <Route path={ROUTES.CART}>
                 <Route path=':productId' element={<CartPage />} />

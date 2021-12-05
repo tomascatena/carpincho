@@ -1,5 +1,3 @@
-import { CHECKOUT_STEPS } from '../constants/constants';
-
 export type Nullable<T> = T | null;
 
 export interface IProduct {
