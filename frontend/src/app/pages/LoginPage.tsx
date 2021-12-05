@@ -44,7 +44,7 @@ const LoginPage: FC = () => {
 
     setEmail({ ...email, isValidated: true });
     setPassword({ ...password, isValidated: true });
-
+    
     dispatch(userLogin({ email: email.value, password: password.value }));
   };
 
