@@ -11,6 +11,7 @@ import { useTypedSelector, useAppDispatch } from '../hooks';
 import { fetchProductById } from '../store/features/productDetails/productDetails.thunk';
 import ProductOverview from '../components/ProductOverview';
 import ProductPageSummary from '../components/ProductPageSummary';
+import { ROUTES } from '../constants/constants';
 
 const ProductPage: FC = () => {
   const [quantity, setQuantity] = useState<number>(1);
@@ -36,7 +37,7 @@ const ProductPage: FC = () => {
 
   const addToCartHandler = () => {
     if (productDetails) {
-      navigate(`/cart/${productId}?qty=${quantity}`);
+      navigate(`${ROUTES.CART}/${productId}?qty=${quantity}`);
     } else {
       navigate('/');
     }

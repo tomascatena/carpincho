@@ -15,6 +15,8 @@ import LoginPage from './app/pages/LoginPage';
 import RegisterPage from './app/pages/RegisterPage';
 import UserProfilePage from './app/pages/UserProfilePage';
 import ShippingPage from './app/pages/ShippingPage';
+import PaymentMethodsPage from './app/pages/PaymentMethodsPage';
+import { ROUTES } from './app/constants/constants';
 
 const MainLayout = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
@@ -43,17 +45,28 @@ const App: FC = () => {
             <Routes>
               <Route path='/' element={<HomePage />} />
 
-              <Route path='/product/:productId' element={<ProductPage />} />
+              <Route
+                path={`${ROUTES.PRODUCT}/:productId`}
+                element={<ProductPage />}
+              />
 
-              <Route path='/login' element={<LoginPage />} />
+              <Route path={ROUTES.LOGIN} element={<LoginPage />} />
 
-              <Route path='/register' element={<RegisterPage />} />
+              <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
 
-              <Route path='/profile' element={<UserProfilePage />} />
+              <Route path={ROUTES.PROFILE} element={<UserProfilePage />} />
 
-              <Route path='/shipping' element={<ShippingPage />} />
+              <Route
+                path={ROUTES.SHIPPING_ADDRESS}
+                element={<ShippingPage />}
+              />
 
-              <Route path='/cart'>
+              <Route
+                path={ROUTES.PAYLMENT_METHOD}
+                element={<PaymentMethodsPage />}
+              />
+
+              <Route path={ROUTES.CART}>
                 <Route path=':productId' element={<CartPage />} />
                 <Route path='' element={<CartPage />} />
               </Route>

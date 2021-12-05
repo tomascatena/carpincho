@@ -11,7 +11,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Fade from '@mui/material/Fade';
 import { styled } from '@mui/material/styles';
-import { CHECKOUT_STEPS } from '../constants/constants';
+import { CHECKOUT_STEPS, ROUTES } from '../constants/constants';
 
 const FormBox = styled('form')({
   display: 'flex',
@@ -46,7 +46,7 @@ const LoginPage: FC = () => {
 
     setEmail({ ...email, isValidated: true });
     setPassword({ ...password, isValidated: true });
-    
+
     setCheckoutStepCompleted(CHECKOUT_STEPS.LOGIN);
     dispatch(userLogin({ email: email.value, password: password.value }));
   };
@@ -178,7 +178,11 @@ const LoginPage: FC = () => {
       >
         Don&lsquo;t have an account?{' '}
         <Link
-          to={redirect ? `/register/?redirect=${redirect}` : '/register'}
+          to={
+            redirect
+              ? `${ROUTES.REGISTER}/?redirect=${redirect}`
+              : ROUTES.REGISTER
+          }
           style={{ color: 'inherit' }}
         >
           Register here

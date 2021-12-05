@@ -12,6 +12,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Fade from '@mui/material/Fade';
 import { styled } from '@mui/material/styles';
+import { ROUTES } from '../constants/constants';
 
 const FormBox = styled('form')({
   display: 'flex',
@@ -50,7 +51,7 @@ const UserProfilePage: FC = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate('/login?redirect=profile');
+      navigate(`${ROUTES.LOGIN}?redirect=profile`);
     } else {
       setName({ ...name, value: user.name, isValid: true });
       setEmail({ ...email, value: user.email, isValid: true });

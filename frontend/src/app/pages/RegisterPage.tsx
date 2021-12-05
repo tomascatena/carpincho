@@ -11,6 +11,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Fade from '@mui/material/Fade';
 import { styled } from '@mui/material/styles';
+import { ROUTES } from '../constants/constants';
 
 const FormBox = styled('form')({
   display: 'flex',
@@ -280,7 +281,7 @@ const RegisterPage: FC = () => {
       >
         Already have an account?{' '}
         <Link
-          to={redirect ? `/login/?redirect=${redirect}` : '/login'}
+          to={redirect ? `${ROUTES.LOGIN}/?redirect=${redirect}` : ROUTES.LOGIN}
           style={{ color: 'inherit' }}
         >
           Login here

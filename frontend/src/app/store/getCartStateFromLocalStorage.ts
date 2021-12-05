@@ -5,6 +5,8 @@ export const getCartStateFromLocalStorage = (): void => {
   try {
     const persistedCartItems = localStorage.getItem('cartItems');
     const persistedShippingAddress = localStorage.getItem('shippingAddress');
+    const persistedPaymentMethod = localStorage.getItem('paymentMethod');
+    const persistedCheckoutSteps = localStorage.getItem('checkoutSteps');
 
     if (persistedCartItems) {
       const cartItems = JSON.parse(persistedCartItems);
@@ -16,6 +18,18 @@ export const getCartStateFromLocalStorage = (): void => {
       const shippingAddress = JSON.parse(persistedShippingAddress);
 
       store.dispatch(cartActions.hydrateShippingAddress(shippingAddress));
+    }
+
+    if (persistedCheckoutSteps) {
+      const checkoutSteps = JSON.parse(persistedCheckoutSteps);
+
+      store.dispatch(cartActions.hydrateCheckoutSteps(checkoutSteps));
+    }
+
+    if (persistedPaymentMethod) {
+      const paymentMethod = JSON.parse(persistedPaymentMethod);
+
+      store.dispatch(cartActions.hydrateCheckoutSteps(paymentMethod));
     }
   } catch (error) {
     console.log(error);

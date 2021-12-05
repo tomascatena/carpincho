@@ -1,5 +1,9 @@
 import { createSlice, SerializedError, PayloadAction } from '@reduxjs/toolkit';
-import { CHECKOUT_STEPS } from '../../../constants/constants';
+import {
+  CHECKOUT_STEPS,
+  PAYMENT_METHODS,
+  ROUTES,
+} from '../../../constants/constants';
 import {
   IAddCartItem,
   ICartItem,
@@ -12,28 +16,28 @@ const checkoutSteps = [
   {
     id: CHECKOUT_STEPS.LOGIN,
     label: 'Sign In',
-    link: '/login?redirect=shipping',
+    link: `${ROUTES.LOGIN}?redirect=shipping`,
     completed: false,
     isActive: false,
   },
   {
     id: CHECKOUT_STEPS.SHIPPING_ADDRESS,
     label: 'Shipping Address',
-    link: '/shipping',
+    link: ROUTES.SHIPPING_ADDRESS,
     completed: false,
     isActive: false,
   },
   {
     id: CHECKOUT_STEPS.PAYMENT,
     label: 'Payment',
-    link: '/payment',
+    link: ROUTES.PAYLMENT_METHOD,
     completed: false,
     isActive: false,
   },
   {
-    id: CHECKOUT_STEPS.SHIPPING_ADDRESS,
+    id: CHECKOUT_STEPS.PLACE_ORDER,
     label: 'Place Order',
-    link: '/order',
+    link: ROUTES.PLACE_ORDER,
     completed: false,
     isActive: false,
   },
@@ -46,6 +50,7 @@ export interface CartState {
   currentRequestId: string | undefined;
   error: SerializedError | null;
   checkoutSteps: CheckoutStep[];
+  paymentMethod: Nullable<string>;
 }
 
 const initialState: CartState = {
@@ -55,6 +60,7 @@ const initialState: CartState = {
   currentRequestId: undefined,
   error: null,
   checkoutSteps: checkoutSteps,
+  paymentMethod: null,
 };
 
 export const cartSlice = createSlice({
@@ -66,6 +72,12 @@ export const cartSlice = createSlice({
     },
     hydrateShippingAddress: (state, action: PayloadAction<ShippingAddress>) => {
       state.shippingAddress = action.payload;
+    },
+    hydratePaymentMethod: (state, action: PayloadAction<string>) => {
+      state.paymentMethod = action.payload;
+    },
+    hydrateCheckoutSteps: (state, action: PayloadAction<CheckoutStep[]>) => {
+      state.checkoutSteps = action.payload;
     },
     addCartItem(state, action: PayloadAction<IAddCartItem>) {
       const { item, quantity } = action.payload;
@@ -132,14 +144,23 @@ export const cartSlice = createSlice({
         JSON.stringify(state.shippingAddress)
       );
     },
+    savePaymentMethod(state, action: PayloadAction<string>) {
+      state.paymentMethod = action.payload;
+
+      localStorage.setItem(
+        'paymentMethod',
+        JSON.stringify(state.paymentMethod)
+      );
+    },
     resetCheckoutSteps(state) {
       state.checkoutSteps.forEach((step) => {
         step.completed = false;
         step.isActive = false;
       });
+
+      localStorage.removeItem('checkoutSteps');
     },
     setCheckoutStepCompleted(state, action: PayloadAction<string>) {
-      console.log('setCheckoutStepCompleted');
       let nextActiveStep;
       state.checkoutSteps.forEach((step, i) => {
         if (step.id === action.payload) {
@@ -149,11 +170,14 @@ export const cartSlice = createSlice({
         }
       });
 
-      console.log(nextActiveStep);
-
       if (nextActiveStep && nextActiveStep < checkoutSteps.length) {
         state.checkoutSteps[nextActiveStep].isActive = true;
       }
+
+      localStorage.setItem(
+        'checkoutSteps',
+        JSON.stringify(state.checkoutSteps)
+      );
     },
   },
 });

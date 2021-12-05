@@ -17,9 +17,6 @@ const CheckoutSteps: FC = () => {
     .map((step) => step.isActive === true)
     .indexOf(true);
 
-  console.log(checkoutSteps);
-  console.log(activeStep);
-
   const handleStep = (step: number, link: string) => () => {
     navigate(link);
   };

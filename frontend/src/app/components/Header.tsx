@@ -19,6 +19,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MaterialUISwitch from './MUISwitch';
 import { useTypedSelector, useActions } from '../hooks';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../constants/constants';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -79,10 +80,8 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
   );
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [
-    mobileMoreAnchorEl,
-    setMobileMoreAnchorEl,
-  ] = useState<null | HTMLElement>(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
+    useState<null | HTMLElement>(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -105,22 +104,17 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
   };
 
   const goToCartPage = () => {
-    navigate('/cart');
+    navigate(ROUTES.CART);
   };
 
   const handleProfileClick = () => {
     handleMenuClose();
-    navigate('/profile');
-  };
-
-  const handleMyAccountClick = () => {
-    handleMenuClose();
-    navigate('/my-account');
+    navigate(ROUTES.PROFILE);
   };
 
   const handleLoginClick = () => {
     handleMenuClose();
-    navigate('/login');
+    navigate(ROUTES.LOGIN);
   };
 
   const handleLogoutClick = () => {
@@ -149,10 +143,6 @@ const Header: FC<Props> = ({ setDarkTheme, darkTheme }) => {
     >
       <MenuItem onClick={handleProfileClick} sx={{ minWidth: 150 }}>
         Profile
-      </MenuItem>
-
-      <MenuItem onClick={handleMyAccountClick} sx={{ minWidth: 150 }}>
-        My account
       </MenuItem>
 
       <MenuItem onClick={handleLogoutClick} sx={{ minWidth: 150 }}>

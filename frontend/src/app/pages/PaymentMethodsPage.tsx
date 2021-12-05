@@ -8,11 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import { styled } from '@mui/material/styles';
 import CheckoutSteps from '../components/CheckoutSteps';
-import {
-  CHECKOUT_STEPS,
-  PAYMENT_METHODS,
-  ROUTES,
-} from '../constants/constants';
+import { CHECKOUT_STEPS, ROUTES } from '../constants/constants';
 
 const FormBox = styled('form')({
   display: 'flex',
@@ -32,8 +28,17 @@ const emptyFormField: FormField = {
   isValid: false,
 };
 
-const ShippingPage: FC = () => {
+const PaymentMethodsPage: FC = () => {
+  const navigate = useNavigate();
+  const { saveShippingAddress, setCheckoutStepCompleted } = useActions();
+
+  const [paymentMethod, setPaymentMethod] = useState('paypal');
+
   const { shippingAddress } = useTypedSelector((state) => state.cart);
+
+  if (!shippingAddress) {
+    navigate(ROUTES.SHIPPING_ADDRESS);
+  }
 
   const [address, setAddress] = useState({
     ...emptyFormField,
@@ -87,9 +92,6 @@ const ShippingPage: FC = () => {
     setInitialState();
   }, [shippingAddress]);
 
-  const navigate = useNavigate();
-  const { saveShippingAddress, setCheckoutStepCompleted } = useActions();
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -100,8 +102,8 @@ const ShippingPage: FC = () => {
       country: country.value,
     });
 
-    setCheckoutStepCompleted(CHECKOUT_STEPS.SHIPPING_ADDRESS);
-    navigate(ROUTES.PAYLMENT_METHOD);
+    setCheckoutStepCompleted(CHECKOUT_STEPS.PAYMENT);
+    navigate(ROUTES.PLACE_ORDER);
   };
 
   const helperTextAddress = () => {
@@ -143,7 +145,7 @@ const ShippingPage: FC = () => {
         sx={{ marginBottom: 5, marginTop: 3 }}
         color='text.primary'
       >
-        Shipping
+        Payment Methods
       </Typography>
 
       <FormBox noValidate onSubmit={handleSubmit}>
@@ -240,4 +242,4 @@ const ShippingPage: FC = () => {
   );
 };
 
-export default ShippingPage;
+export default PaymentMethodsPage;
