@@ -36,7 +36,7 @@ const PlaceOrderSummary: FC<Props> = ({
             justifyContent: 'space-between',
           }}
         >
-          <span>Items</span> {itemsPrice && formatEUR(itemsPrice)}
+          <span>Items</span> {itemsPrice !== null && formatEUR(itemsPrice)}
         </Typography>
 
         <Divider sx={{ marginBlock: 2 }} />
@@ -50,7 +50,8 @@ const PlaceOrderSummary: FC<Props> = ({
             justifyContent: 'space-between',
           }}
         >
-          <span>Shipping</span> {shippingPrice && formatEUR(shippingPrice)}
+          <span>Shipping</span>{' '}
+          {shippingPrice !== null && formatEUR(shippingPrice)}
         </Typography>
 
         <Divider sx={{ marginBlock: 2 }} />
@@ -65,7 +66,7 @@ const PlaceOrderSummary: FC<Props> = ({
           }}
         >
           <span>Tax ({percentFormatter(TAX_RATE)})</span>{' '}
-          {taxPrice && formatEUR(taxPrice)}
+          {taxPrice !== null && formatEUR(taxPrice)}
         </Typography>
 
         <Divider sx={{ marginBlock: 2 }} />
@@ -79,7 +80,7 @@ const PlaceOrderSummary: FC<Props> = ({
             justifyContent: 'space-between',
           }}
         >
-          <span>Total</span> {totalPrice && formatEUR(totalPrice)}
+          <span>Total</span> {totalPrice !== null && formatEUR(totalPrice)}
         </Typography>
       </CardContent>
 
