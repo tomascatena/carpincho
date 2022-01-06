@@ -7,7 +7,7 @@ export const formatEUR = (value: number): string => {
   });
 };
 
-export const percentFrmatter = (value: number): string => {
+export const percentFormatter = (value: number): string => {
   return value.toLocaleString(['de-DE'], {
     style: 'percent',
     maximumFractionDigits: 2,

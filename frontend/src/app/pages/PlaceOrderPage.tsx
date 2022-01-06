@@ -16,7 +16,7 @@ import Link from '@mui/material/Link';
 import List from '@mui/material/List';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import { formatEUR, percentFrmatter } from '../utils/numberFormatter';
+import { formatEUR, percentFormatter } from '../utils/numberFormatter';
 import { TAX_RATE } from '../constants/constants';
 
 const PlaceOrderPage: FC = () => {
@@ -214,7 +214,7 @@ const PlaceOrderPage: FC = () => {
                   justifyContent: 'space-between',
                 }}
               >
-                <span>Tax ({percentFrmatter(TAX_RATE)})</span>{' '}
+                <span>Tax ({percentFormatter(TAX_RATE)})</span>{' '}
                 {taxPrice && formatEUR(taxPrice)}
               </Typography>
 
