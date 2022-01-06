@@ -18,9 +18,7 @@ const CartPage: FC = () => {
   const qty = searchParams.get('qty');
 
   const { cartItems } = useTypedSelector((state) => state.cart);
-  const { productDetails, loading, error } = useTypedSelector(
-    (state) => state.productDetails
-  );
+  const { productDetails } = useTypedSelector((state) => state.productDetails);
   const { addCartItem } = useActions();
   const dispatch = useAppDispatch();
 
