@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ICartItem } from '../types/types';
+import { ICartItem } from '../../types/types';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../constants/constants';
+import { ROUTES } from '../../constants/constants';
 
 interface Props {
   cartItems: ICartItem[];

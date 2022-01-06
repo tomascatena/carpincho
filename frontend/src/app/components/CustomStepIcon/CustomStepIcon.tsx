@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import DoneIcon from '@mui/icons-material/Done';
 import { StepIconProps } from '@mui/material/StepIcon';
-import { CustomStepIconRoot } from './styledComponents/CustomStepIconRoot';
+import { CustomStepIconRoot } from './CustomStepIcon.styled';
 
 interface Props {
   props: StepIconProps;

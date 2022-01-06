@@ -11,7 +11,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Fade from '@mui/material/Fade';
 import { ROUTES } from '../constants/constants';
-import { FormBox } from '../components/styledComponents/FormBox';
+import { FormBox } from '../components/commonStyledComponents/FormBox';
 
 const RegisterPage: FC = () => {
   const [showError, setShowError] = useState(false);

@@ -29,7 +29,7 @@ const checkoutSteps = [
   {
     id: CHECKOUT_STEPS.PAYMENT,
     label: 'Payment',
-    link: ROUTES.PAYLMENT_METHOD,
+    link: ROUTES.PAYMENT_METHOD,
     completed: false,
     isActive: false,
   },

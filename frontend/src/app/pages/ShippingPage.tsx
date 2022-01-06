@@ -5,9 +5,9 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import CheckoutSteps from '../components/CheckoutSteps';
+import CheckoutSteps from '../components/CheckoutSteps/CheckoutSteps';
 import { CHECKOUT_STEPS, ROUTES } from '../constants/constants';
-import { FormBox } from '../components/styledComponents/FormBox';
+import { FormBox } from '../components/commonStyledComponents/FormBox';
 
 interface FormField {
   value: string;
@@ -90,7 +90,7 @@ const ShippingPage: FC = () => {
     });
 
     setCheckoutStepCompleted(CHECKOUT_STEPS.SHIPPING_ADDRESS);
-    navigate(ROUTES.PAYLMENT_METHOD);
+    navigate(ROUTES.PAYMENT_METHOD);
   };
 
   const helperTextAddress = () => {

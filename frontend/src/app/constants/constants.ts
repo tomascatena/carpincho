@@ -15,7 +15,7 @@ export const ROUTES = {
   REGISTER: '/register',
   PROFILE: '/profile',
   SHIPPING_ADDRESS: '/shipping-address',
-  PAYLMENT_METHOD: '/payment-method',
+  PAYMENT_METHOD: '/payment-method',
   PLACE_ORDER: '/place-order',
   CART: '/cart',
   PRODUCT: '/product',

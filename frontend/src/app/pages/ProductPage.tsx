@@ -9,8 +9,8 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useTypedSelector, useAppDispatch } from '../hooks';
 import { fetchProductById } from '../store/features/productDetails/productDetails.thunk';
-import ProductOverview from '../components/ProductOverview';
-import ProductPageSummary from '../components/ProductPageSummary';
+import ProductOverview from '../components/ProductOverView/ProductOverview';
+import ProductPageSummary from '../components/ProductPageSummary/ProductPageSummary';
 import { ROUTES } from '../constants/constants';
 
 const ProductPage: FC = () => {

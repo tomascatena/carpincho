@@ -7,8 +7,8 @@ import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Link from '@mui/material/Link';
-import CartItemsList from '../components/CartItemsList';
-import CartSummary from '../components/CartSummary';
+import CartItemsList from '../components/CartItemsList/CartItemsList';
+import CartSummary from '../components/CartSummary/CartSummary';
 
 const CartPage: FC = () => {
   const navigate = useNavigate();

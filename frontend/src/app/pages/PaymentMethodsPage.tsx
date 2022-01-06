@@ -9,8 +9,8 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { FormBox } from '../components/styledComponents/FormBox';
-import CheckoutSteps from '../components/CheckoutSteps';
+import { FormBox } from '../components/commonStyledComponents/FormBox';
+import CheckoutSteps from '../components/CheckoutSteps/CheckoutSteps';
 import {
   CHECKOUT_STEPS,
   PAYMENT_METHODS,

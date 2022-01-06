@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
-import { IProduct } from '../types/types';
+import { IProduct } from '../../types/types';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {

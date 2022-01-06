@@ -11,7 +11,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Card from '@mui/material/Card';
 
-import { IProduct } from '../types/types';
+import { IProduct } from '../../types/types';
 
 interface Props {
   productDetails: IProduct;

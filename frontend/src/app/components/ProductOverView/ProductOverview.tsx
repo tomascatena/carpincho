@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { IProduct } from '../types/types';
+import { IProduct } from '../../types/types';
 
 interface Props {
   productDetails: IProduct;

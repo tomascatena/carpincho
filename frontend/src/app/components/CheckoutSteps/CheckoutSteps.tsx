@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import { useTypedSelector } from '../hooks';
+import { useTypedSelector } from '../../hooks';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import StepLabel from '@mui/material/StepLabel';
 import { useNavigate } from 'react-router';
-import CustomStepIcon from './CustomStepIcon';
+import CustomStepIcon from '../CustomStepIcon/CustomStepIcon';
 
 const CheckoutSteps: FC = () => {
   const navigate = useNavigate();

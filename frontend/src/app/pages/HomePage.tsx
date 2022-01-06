@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../components/ProductCard/ProductCard';
 import { useAppDispatch, useTypedSelector } from '../hooks';
 import { fetchProducts } from '../store/features/products/products.thunk';
 import CircularProgress from '@mui/material/CircularProgress';

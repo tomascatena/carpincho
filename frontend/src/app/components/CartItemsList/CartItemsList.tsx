@@ -5,7 +5,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
-import { ICartItem } from '../types/types';
+import { ICartItem } from '../../types/types';
 import Link from '@mui/material/Link';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
-import { useActions } from '../hooks';
+import { useActions } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
