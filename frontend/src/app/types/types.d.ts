@@ -70,3 +70,17 @@ export interface CheckoutStep {
   completed: boolean;
   isActive: boolean;
 }
+
+export interface Order {
+  _id: string;
+}
+
+export interface PlaceOrder {
+  orderItems: ICartItem[];
+  shippingAddress: ShippingAddress;
+  paymentMethod: string;
+  itemsPrice: number;
+  taxPrice: number;
+  shippingPrice: number;
+  totalPrice: number;
+}

@@ -15,6 +15,8 @@ interface Props {
   taxPrice: Nullable<number>;
   shippingPrice: Nullable<number>;
   totalPrice: Nullable<number>;
+  dispatchCreateOrder: () => void;
+  loading: 'idle' | 'pending';
 }
 
 const PlaceOrderSummary: FC<Props> = ({
@@ -23,6 +25,8 @@ const PlaceOrderSummary: FC<Props> = ({
   taxPrice,
   shippingPrice,
   totalPrice,
+  dispatchCreateOrder,
+  loading,
 }) => {
   return (
     <Card>
@@ -87,8 +91,8 @@ const PlaceOrderSummary: FC<Props> = ({
       <CardActions>
         <Button
           sx={{ margin: 1 }}
-          disabled={cartItems.length === 0}
-          onClick={() => console.log('cicked')}
+          disabled={cartItems.length === 0 || loading === 'pending'}
+          onClick={() => dispatchCreateOrder()}
           variant='contained'
           color='primary'
           fullWidth

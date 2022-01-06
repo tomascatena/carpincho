@@ -3,6 +3,7 @@ import productsReducer from './features/products/productsSlice';
 import productDetailsReducer from './features/productDetails/productDetailsSlice';
 import cartReducer from './features/cart/cartSlice';
 import userReducer from './features/user/userSlice';
+import orderReducer from './features/order/orderSlice';
 import { getCartStateFromLocalStorage } from './getCartStateFromLocalStorage';
 import { getUserInfoFromLocalStorage } from './getUserInfoFromLocalStorage';
 
@@ -12,6 +13,7 @@ export const store = configureStore({
     productDetails: productDetailsReducer,
     cart: cartReducer,
     user: userReducer,
+    order: orderReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

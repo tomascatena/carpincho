@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, validationResult, header } from 'express-validator';
 import httpStatus from 'http-status';
-import { optional } from 'joi';
 import config from '../config/config';
 
 export const loginUser = [

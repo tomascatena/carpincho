@@ -1,11 +1,14 @@
-import React, { FC } from 'react';
-import { useTypedSelector } from '../hooks';
+import React, { FC, useEffect } from 'react';
+import { useAppDispatch, useTypedSelector } from '../hooks';
 import CheckoutSteps from '../components/CheckoutSteps/CheckoutSteps';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import PlaceOrderDetails from '../components/PlaceOrderDetails/PlaceOrderDetails';
 import PlaceOrderSummary from '../components/PlaceOrderSummary/PlaceOrderSummary';
+import { createOrder } from '../store/features/order/order.thunk';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../constants/constants';
 
 const PlaceOrderPage: FC = () => {
   const {
@@ -17,6 +20,45 @@ const PlaceOrderPage: FC = () => {
     shippingPrice,
     totalPrice,
   } = useTypedSelector((state) => state.cart);
+
+  const { placedOrder, loading } = useTypedSelector((state) => state.order);
+
+  const { user } = useTypedSelector((state) => state.user);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user && placedOrder) {
+      navigate(`/order/${placedOrder._id}`);
+    } else if (!user) {
+      navigate(ROUTES.LOGIN);
+    }
+  }, [placedOrder, user]);
+
+  const dispatchCreateOrder = () => {
+    if (
+      shippingAddress !== null &&
+      paymentMethod !== null &&
+      itemsPrice !== null &&
+      taxPrice !== null &&
+      shippingPrice !== null &&
+      totalPrice !== null &&
+      cartItems.length
+    ) {
+      dispatch(
+        createOrder({
+          orderItems: cartItems,
+          shippingAddress,
+          paymentMethod,
+          itemsPrice,
+          taxPrice,
+          shippingPrice,
+          totalPrice,
+        })
+      );
+    }
+  };
 
   return (
     <>
@@ -49,6 +91,8 @@ const PlaceOrderPage: FC = () => {
             taxPrice={taxPrice}
             shippingPrice={shippingPrice}
             totalPrice={totalPrice}
+            dispatchCreateOrder={dispatchCreateOrder}
+            loading={loading}
           />
         </Grid>
       </Grid>

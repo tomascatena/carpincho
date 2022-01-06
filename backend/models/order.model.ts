@@ -66,22 +66,18 @@ const orderSchema = new mongoose.Schema(
     paymentResult: {
       id: {
         type: String,
-        required: true,
         trim: true,
       },
       status: {
         type: String,
-        required: true,
         trim: true,
       },
       update_time: {
         type: String,
-        required: true,
         trim: true,
       },
       email_address: {
         type: String,
-        required: true,
         trim: true,
       },
     },
@@ -110,7 +106,6 @@ const orderSchema = new mongoose.Schema(
     },
     isDelivered: {
       type: Boolean,
-      required: true,
       default: false,
     },
     deliveredAt: {

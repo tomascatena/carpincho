@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import Product from '../models/product.model';
 import { productsService } from '../services';
 import { catchAsync } from '../utils/catchAsync';
 
