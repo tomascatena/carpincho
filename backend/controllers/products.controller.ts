@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { productsService } from '../services';
+import Product from '../models/product.model';
 import { catchAsync } from '../utils/catchAsync';
 
 // @desc    Fetch all products
 // @route   GET /api/v1/products
 // @access  Public
 export const getProducts = catchAsync(async (req: Request, res: Response) => {
-  const products = await productsService.getAllProducts();
+  const products = await Product.find({});
 
   res.status(httpStatus.OK).json({
     products,
@@ -19,7 +19,7 @@ export const getProducts = catchAsync(async (req: Request, res: Response) => {
 // @access  Public
 export const getSingleProduct = catchAsync(
   async (req: Request, res: Response) => {
-    const product = await productsService.getProductById(req.params.productId);
+    const product = await Product.findById(req.params.productId);
 
     if (product) {
       res.status(httpStatus.OK).json({
