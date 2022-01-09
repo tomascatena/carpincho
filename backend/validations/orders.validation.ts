@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { body, validationResult, check } from 'express-validator';
+import { body, validationResult, check, param } from 'express-validator';
 import httpStatus from 'http-status';
 import config from '../config/config';
 
@@ -42,7 +42,22 @@ export const addOrderItems = [
 
       return true;
     }),
+  (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
 
+    if (!errors.isEmpty()) {
+      return res.status(httpStatus.BAD_REQUEST).json({
+        message: 'Missing required fields',
+        errors: errors.mapped(),
+      });
+    }
+
+    next();
+  },
+];
+
+export const getOrderById = [
+  param('orderId').isMongoId().escape(),
   (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
 
