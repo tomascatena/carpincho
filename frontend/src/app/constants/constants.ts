@@ -19,6 +19,7 @@ export const ROUTES = {
   PLACE_ORDER: '/place-order',
   CART: '/cart',
   PRODUCT: '/product',
+  ORDER: '/order',
 };
 
 export const TAX_RATE = 0.17;

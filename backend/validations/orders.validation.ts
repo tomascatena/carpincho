@@ -15,23 +15,46 @@ export const addOrderItems = [
 
       return true;
     }),
-  body('orderItems.*.product', 'product is required and must be a string')
+  body('orderItems.*.product', 'Product is required and must be a string')
     .exists()
     .isString()
     .escape(),
-  body('orderItems.*.quantity', 'quantity is required and must be a number')
+  body('orderItems.*.quantity', 'Quantity is required and must be a number')
     .exists()
     .isNumeric()
     .escape(),
-  body('orderItems.*.price', 'price is required and must be a number')
+  body('orderItems.*.price', 'Price is required and must be a number')
     .exists()
     .isNumeric()
     .escape(),
-  body('orderItems.*.name', 'name is required and must be a string')
+  body('orderItems.*.name', 'Name is required and must be a string')
+    .exists()
+    .isString()
+    .escape(),
+  body('orderItems.*.image', 'Image is required and must be a string')
     .exists()
     .isString()
     .escape(),
   body('shippingAddress').isObject(),
+  body('shippingAddress.address', 'Address is required and must be a string')
+    .exists()
+    .isString()
+    .escape(),
+  body('shippingAddress.city', 'City is required and must be a string')
+    .exists()
+    .isString()
+    .escape(),
+  body(
+    'shippingAddress.postalCode',
+    'Postal code is required and must be a string'
+  )
+    .exists()
+    .isString()
+    .escape(),
+  body('shippingAddress.country', 'Country is required and must be a string')
+    .exists()
+    .isString()
+    .escape(),
   body('paymentMethod')
     .trim()
     .escape()

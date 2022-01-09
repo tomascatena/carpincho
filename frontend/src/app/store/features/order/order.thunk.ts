@@ -1,10 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Order, PlaceOrder } from '../../../types/types';
+import { CreatedOrder, OrderDetails, PlaceOrder } from '../../../types/types';
 import { RootState } from '../../store';
+import { orderActions } from './orderSlice';
 
 export const createOrder = createAsyncThunk<
-  Order,
+  CreatedOrder,
   PlaceOrder,
   { state: RootState }
 >('order/createOrder', async (order, { getState, requestId }) => {
@@ -26,3 +27,36 @@ export const createOrder = createAsyncThunk<
 
   return data.createdOrder;
 });
+
+export const getOrderDetails = createAsyncThunk<
+  OrderDetails,
+  string,
+  { state: RootState }
+>(
+  'order/getOrderDetails',
+  async (orderId, { getState, requestId, dispatch }) => {
+    const { user } = getState().user;
+    const { loading, currentRequestId } = getState().order;
+
+    if (loading !== 'pending' || requestId !== currentRequestId) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user?.tokens?.access.token}`,
+      },
+    };
+
+    try {
+      const { data } = await axios.get(`/api/v1/orders/${orderId}`, config);
+
+      return data.order;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        dispatch(orderActions.setError(error.response?.data));
+      }
+    }
+  }
+);

@@ -11,6 +11,7 @@ import { SuspensePage } from './SuspensePage';
 
 const HomePage = lazy(() => import('./app/pages/HomePage'));
 const CartPage = lazy(() => import('./app/pages/CartPage'));
+const OrderPage = lazy(() => import('./app/pages/OrderPage'));
 const LoginPage = lazy(() => import('./app/pages/LoginPage'));
 const ProductPage = lazy(() => import('./app/pages/ProductPage'));
 const ShippingPage = lazy(() => import('./app/pages/ShippingPage'));
@@ -66,6 +67,13 @@ const App: FC = () => {
                 path={ROUTES.PLACE_ORDER}
                 element={<SuspensePage component={PlaceOrderPage} />}
               />
+
+              <Route path={ROUTES.ORDER}>
+                <Route
+                  path=':orderId'
+                  element={<SuspensePage component={OrderPage} />}
+                />
+              </Route>
 
               <Route path={ROUTES.CART}>
                 <Route

@@ -1,16 +1,18 @@
-import { createSlice, SerializedError } from '@reduxjs/toolkit';
-import { Order, Nullable } from '../../../types/types';
-import { createOrder } from './order.thunk';
+import { createSlice, SerializedError, PayloadAction } from '@reduxjs/toolkit';
+import { Nullable, CreatedOrder, OrderDetails } from '../../../types/types';
+import { createOrder, getOrderDetails } from './order.thunk';
 
 export interface UserState {
-  placedOrder: Nullable<Order>;
+  placedOrder: Nullable<CreatedOrder>;
+  orderDetails: Nullable<OrderDetails>;
   loading: 'idle' | 'pending';
   currentRequestId: string | undefined;
-  error: SerializedError | null | string;
+  error: SerializedError | null;
 }
 
 const initialState: UserState = {
   placedOrder: null,
+  orderDetails: null,
   loading: 'idle',
   currentRequestId: undefined,
   error: null,
@@ -19,7 +21,11 @@ const initialState: UserState = {
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+    setError(state, action: PayloadAction<SerializedError>) {
+      state.error = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createOrder.pending, (state, action) => {
@@ -48,6 +54,37 @@ export const orderSlice = createSlice({
           state.currentRequestId === requestId
         ) {
           state.placedOrder = null;
+          state.loading = 'idle';
+          state.error = action.error;
+          state.currentRequestId = undefined;
+        }
+      })
+      .addCase(getOrderDetails.pending, (state, action) => {
+        if (state.loading === 'idle') {
+          state.orderDetails = null;
+          state.loading = 'pending';
+          state.error = null;
+          state.currentRequestId = action.meta.requestId;
+        }
+      })
+      .addCase(getOrderDetails.fulfilled, (state, action) => {
+        const { requestId } = action.meta;
+        if (
+          state.loading === 'pending' &&
+          state.currentRequestId === requestId
+        ) {
+          state.orderDetails = action.payload;
+          state.loading = 'idle';
+          state.currentRequestId = undefined;
+        }
+      })
+      .addCase(getOrderDetails.rejected, (state, action) => {
+        const { requestId } = action.meta;
+        if (
+          state.loading === 'pending' &&
+          state.currentRequestId === requestId
+        ) {
+          state.orderDetails = null;
           state.loading = 'idle';
           state.error = action.error;
           state.currentRequestId = undefined;

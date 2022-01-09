@@ -71,16 +71,44 @@ export interface CheckoutStep {
   isActive: boolean;
 }
 
-export interface Order {
+export interface CreatedOrder {
   _id: string;
+  user: string;
+  orderItems: Partial<ICartItem>[];
+  shippingAddress: ShippingAddress;
+  paymentMethod: string;
+  taxPrice: number;
+  shippingPrice: number;
+  totalPrice: number;
+  isPaid: boolean;
+  isDelivered: boolean;
 }
 
 export interface PlaceOrder {
-  orderItems: ICartItem[];
+  orderItems: Partial<ICartItem>[];
   shippingAddress: ShippingAddress;
   paymentMethod: string;
   itemsPrice: number;
   taxPrice: number;
   shippingPrice: number;
   totalPrice: number;
+}
+
+export interface OrderDetails {
+  _id: string;
+  orderItems: ICartItem[];
+  shippingAddress: ShippingAddress;
+  paymentMethod: string;
+  taxPrice: number;
+  shippingPrice: number;
+  totalPrice: number;
+  isPaid: boolean;
+  isDelivered: boolean;
+  paidAt?: Date;
+  deliveredAt?: Date;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+  };
 }
