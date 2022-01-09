@@ -94,3 +94,36 @@ export const getOrderById = [
     next();
   },
 ];
+
+export const updateOrderToPaid = [
+  param('orderId').isMongoId().escape(),
+  body('id', 'id is required and must be a string')
+    .exists()
+    .isString()
+    .escape(),
+  body('status', 'Status is required and must be a string')
+    .exists()
+    .isString()
+    .escape(),
+  body('update_time', 'update_time is required and must be a string')
+    .exists()
+    .isString()
+    .escape(),
+  body('payer').isObject(),
+  body('payer.email_address', 'email_address is required and must be a string')
+    .exists()
+    .isString()
+    .escape(),
+  (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(httpStatus.BAD_REQUEST).json({
+        message: 'Missing required fields',
+        errors: errors.mapped(),
+      });
+    }
+
+    next();
+  },
+];

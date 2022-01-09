@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { useAppDispatch, useTypedSelector } from '../hooks';
+import { useAppDispatch, useTypedSelector, useActions } from '../hooks';
 import CheckoutSteps from '../components/CheckoutSteps/CheckoutSteps';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -27,6 +27,7 @@ const PlaceOrderPage: FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { removeCartItem } = useActions();
 
   useEffect(() => {
     if (user && placedOrder) {
@@ -37,6 +38,8 @@ const PlaceOrderPage: FC = () => {
   }, [placedOrder, user]);
 
   const dispatchCreateOrder = () => {
+    cartItems.forEach((item) => removeCartItem(item.product));
+
     if (
       shippingAddress !== null &&
       paymentMethod !== null &&

@@ -28,10 +28,10 @@ const OrderPage: FC = () => {
       navigate(ROUTES.LOGIN);
     }
 
-    if (orderId) {
+    if (orderId && (!orderDetails || orderId !== orderDetails._id)) {
       dispatch(getOrderDetails(orderId));
     }
-  }, [user]);
+  }, [user, orderDetails, orderId]);
 
   return (
     <>

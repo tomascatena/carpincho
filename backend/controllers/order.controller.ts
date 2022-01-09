@@ -70,3 +70,38 @@ export const getOrderById = catchAsync(
     }
   }
 );
+
+// @desc    Update order to paid
+// @route   GET /api/v1/order/:orderId/pay
+// @access  Private
+export const updateOrderToPaid = catchAsync(
+  async (req: RequestWithBody, res: Response) => {
+    if (req.user) {
+      const order = await Order.findById(req.params.orderId);
+
+      if (order) {
+        order.isPaid = true;
+        order.paidAt = Date.now();
+        order.paymentResult = {
+          id: req.body.id,
+          status: req.body.status,
+          update_time: req.body.update_time,
+          email_address: req.body.payer?.email_address,
+        };
+
+        const updatedOrder = await order.save();
+
+        res.status(httpStatus.OK).json({
+          updatedOrder,
+        });
+      } else {
+        res.status(httpStatus.NOT_FOUND);
+        throw new Error('Order not found');
+      }
+    } else {
+      res.status(httpStatus.UNAUTHORIZED).json({
+        message: 'Invalid credentials',
+      });
+    }
+  }
+);

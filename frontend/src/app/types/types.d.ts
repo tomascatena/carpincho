@@ -112,3 +112,16 @@ export interface OrderDetails {
     email: string;
   };
 }
+
+export interface PaymentResult {
+  id: string;
+  status: string;
+  update_time: string;
+  payer: {
+    email_address: string;
+  };
+}
+
+export interface UpdatedOrder {
+  _id: string;
+}
